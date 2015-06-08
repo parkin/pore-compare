@@ -1,6 +1,53 @@
+body {
+	color: #7A1B59;
+}
+.fullHeight {
+	height: 100vh;
+}
 .fullWidth {
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	max-width: initial;
+}
+header {
+	padding: 12px 0;
+	background-color: #9D5892;
+}
+header a {
+	color: #DCCBD6;
+}
+.inline-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.inline-list li {
+	display: inline-block;
+	padding: 0 10px 0 0;
+	margin: 0;
+}
+.text-right {
+	text-align: right;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 400;
+}
+.hero {
+	background-color: #D0A1C0;
+	text-align: center;
+	padding: 160px 0 150px 0;
+}
+#logo {
+	background: url('../img/pore-compare.svg') no-repeat 0 0, center;
+	background-size: 100% auto;
+	padding-bottom: 15.3%;
+	margin-bottom: 20px;
+	width: 100%;
+	max-width: 800px;
+	display: inline-block;
+	font: 0/0 a;
+	color: transparent;
+	white-space: nowrap;
+	overflow: hidden;
 }

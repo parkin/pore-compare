@@ -75,7 +75,7 @@ $('#ds_plot').highcharts({
   legend: {
     layout: 'vertical',
     align: 'right',
-    verticalAlign: 'middle',
+    verticalAlign: 'top',
     borderWidth: 0
   },
   series: [{
