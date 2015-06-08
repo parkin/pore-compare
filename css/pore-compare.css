@@ -74,3 +74,7 @@ footer {
 .show-off-icon .mega-octicon {
 	font-size: 128px;
 }
+
+#ds-plot {
+	min-height: 500px;
+}
