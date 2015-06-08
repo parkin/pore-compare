@@ -63,7 +63,6 @@ $('#ds-plot').highcharts({
       text: '&Delta;G (nS)',
       useHTML: true
     },
-    gridLineColor: 'transparent'
   },
   tooltip: {
     valueSuffix: ' nS'
