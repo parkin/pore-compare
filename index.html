@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="css/skeleton.css" />
   <link rel="stylesheet" href="css/pore-compare.css" />
   <link rel="stylesheet" href="assets/octicons/octicons.css">
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
 </head>
 
 <body>
@@ -20,10 +22,13 @@
           <div class="four columns">
             <ul class="navigation inline-list">
               <li>
-                <a href="#">Hi</a>
+                <a href="#why-compare">Motivation</a>
               </li>
               <li>
-                <a href="#">Bye</a>
+                <a href="#dsDNA">dsDNA</a>
+              </li>
+              <li>
+                <a href="#contribute">Contribute</a>
               </li>
             </ul>
           </div>
@@ -47,28 +52,147 @@
             <div class="large-12 columns">
               <a id="logo" href="#">Pore Compare</a>
               <h3>A comparison of solid-state nanpores in the literature.</h3>
-              <h5>Made with
-                <span class="mega-octicon octicon-heart"></span> by
+              <h5>
+                Inspired by
+                <a href="http://pubs.acs.org/doi/abs/10.1021/acsnano.5b02531">DNA Translocation in nm-Thick Silicon Nanopores</a>.
+              </h5>
+              <h6>
+                Made with
+                <span class="mega-octicon octicon-heart"></span> by Julio, Matt, and
                 <a href="https://github.com/parkin">
                   <span class="mega-octicon octicon-mark-github"></span>parkin</a>.
-              </h5>
+              </h6>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row fullWidth fullHeight">
-        <div class="large-12 columns">
+      <a name="why-compare"></a>
+      <section class="section-title">
+        <div class="container">
+          <div class="row">
+            <div class="twelve columns">
+              <h3>Why Compare?</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="why-compare-body">
+        <div class="container">
+          <div class="row">
+            <div class="twelve columns">
+              <p>
+                The ionic conductance through an open solid-state nanopore can be modeled by
+
+                $$ G_{o} = \sigma [\frac{4 t}{\pi d^2} + \frac{1}{d}]^{-1} $$
+
+                where $ \sigma $ is the solution conductivity, $t$ is the membrane thickness,
+                and $d$ is the nanopore diameter.  When a DNA molecule enters the pore,
+                the molecule blocks a certain area of the pore and thus blocks some ionic current.
+                We can think of the smaller effective area of the pore during translocation as having
+                the diameter
+
+                $$ d_{eff} = \sqrt{d^2 - d_{dna}^2} $$
+
+                We can calculate the change in conductivity as a DNA molecule enters an open pore.
+
+                $$ \Delta G = G_{o} - G_{with dna} $$
+                $$ \Delta G = \sigma [\frac{4 t}{\pi d^2} + \frac{1}{d}]^{-1} - \sigma [\frac{4 t}{\pi d_{eff}^2} + \frac{1}{d_{eff}}]^{-1}$$
+
+                This $ \Delta G $ is the signal measured during DNA translocation experiments.
+                Clearly, if we want to maximize the signal, we need to reduce the membrane thickness and reduce the pore diameter.
+              </p>
+              <p>
+                In the literature, there are a wide variety of salt solutions, membrane materials, and nanopore diameters used in experiments.
+                This site is an attempt to compare different publications by looking at $ \Delta G $ for 1&nbsp;M&nbsp;KCl solution conductivity at 23&nbsp;&deg;C.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <a name="dsDNA"></a>
+      <section class="section-title">
+        <div class="container">
+          <div class="row">
+            <div class="twelve columns">
+              <h3>dsDNA Comparison</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dsdna">
+        <div class="row">
           <div id="ds_plot"></div>
+        </div>
+      </section>
+
+      <a name="contribute"></a>
+      <section class="contribute">
+        <div class="container">
+          <div class="row text-center">
+            <div class="twelve columns">
+              <h3>Contribute</h3>
+              <h5>
+                To add your published datapoints, please do one of the following:
+              </h5>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="six columns">
+              <span class="show-off-icon">
+                <div class="mega-octicon octicon-git-pull-request"></div>
+              </span>
+              <h4>Send in a Pull Request</h4>
+              <h6>Fork the <a href="https://github.com/parkin/pore-compare">repo</a>, make your additions, and send them our way!</h6>
+            </div>
+            <div class="six columns">
+              <span class="show-off-icon">
+                <div class="mega-octicon octicon-issue-opened"></div>
+              </span>
+              <h4>Submit an Issue</h4>
+              <h6>
+                <a href="https://github.com/parkin/pore-compare/issues">Create an issue</a>
+                and tell us about your publication, $ G_o $, and $ \Delta G $.
+                Don't forget to scale your data to 1&nbsp;M&nbsp; KCl at 23&nbsp;&deg;C!
+              </h6>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="one-half column">
+          <ul class="navigation inline-list">
+            <li>
+              <a href="https://github.com/parkin/pore-compare">Project</a>
+            </li>
+          </ul>
+        </div>
+        <div class="one-half column text-right">
+          <span class="octicon octicon-code"></span> with
+          <span class="octicon octicon-heart"></span> by Julio, Matt, and
+          <a href="https://github.com/parkin">
+            <span class="octicon octicon-mark-github"></span>parkin</a>.
         </div>
       </div>
     </div>
-  </div>
+  </footer>
 
   <script src="js/jquery.js"></script>
 
   <script src="http://code.highcharts.com/highcharts.js"></script>
   <script src="highchart.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
+  </script>
 </body>
 
 </html>
