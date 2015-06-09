@@ -148,6 +148,8 @@ function plotChartAndTable(series) {
       layout: 'horizontal',
       align: 'left',
       verticalAlign: 'bottom',
+      itemMarginTop: 6,
+      itemMarginBottom: 6,
       padding: 3,
       borderWidth: 0,
       labelFormatter: function() {
