@@ -1,5 +1,5 @@
 [{
-  "name": "Rodriguez-Manzo, Puster et. al.",
+  "nickname": "Rodriguez-Manzo, Puster et. al.",
   "bib": "doi:10.1021/acsnano.5b02531",
   "dna": 15e3,
   "electrolyte": "KCl",
@@ -20,7 +20,7 @@
     [5.9, 3.4]
   ]
 }, {
-  "name": "Wanunu Nature Nano",
+  "nickname": "Wanunu Nature Nano",
   "bib": "Wanunu2010",
   "dna": 3e3,
   "electrolyte": "KCl",
@@ -33,7 +33,7 @@
     [7.1, 3.2]
   ]
 }, {
-  "name": "PNAS graphene",
+  "nickname": "PNAS graphene",
   "bib": "Garaj23072013",
   "dna": 10e3,
   "electrolyte": "KCl",
@@ -52,7 +52,7 @@
     [60.1, 2.5]
   ]
 }, {
-  "name": "Hall ACS Nano",
+  "nickname": "Hall ACS Nano",
   "bib": "doi:10.1021/nn501694n",
   "dna": 3e3,
   "electrolyte": "NaCl",
@@ -62,7 +62,7 @@
     [39.1, 12.4]
   ]
 }, {
-  "name": "HfO2",
+  "nickname": "HfO2",
   "bib": "doi:10.1021/nn404326f",
   "dna": 100,
   "electrolyte": "KCl",
@@ -72,7 +72,7 @@
     [11.3, 3.4]
   ]
 }, {
-  "name": "Drndic Graphene",
+  "nickname": "Drndic Graphene",
   "bib": "doi:10.1021/nl101046t",
   "dna": 400,
   "electrolyte": "KCl",
@@ -83,7 +83,7 @@
     [28.0, 2.0]
   ]
 }, {
-  "name": "Nature Graphene",
+  "nickname": "Nature Graphene",
   "bib": "Garaj2010",
   "dna": 10e3,
   "electrolyte": "KCl",
@@ -93,7 +93,7 @@
     [39.2, 2.9]
   ]
 }, {
-  "name": "BN Adv Mater",
+  "nickname": "BN Adv Mater",
   "bib": "ADMA:ADMA201301336",
   "dna": 10e3,
   "electrolyte": "KCl",
@@ -103,7 +103,7 @@
     [37.6, 3.8]
   ]
 }, {
-  "name": "BN Sci Rep",
+  "nickname": "BN Sci Rep",
   "bib": "Zhou2013",
   "dna": 48e3,
   "electrolyte": "KCl",
