@@ -48,37 +48,29 @@ h1, h2, h3, h4, h5, h6 {
 	white-space: nowrap;
 	overflow: hidden;
 }
-
 section {
 	padding: 60px 0;
 }
-
 footer {
 	background-color: #FBF8F4;
 	padding: 16px;
 }
-
 .section-title {
 	background-color: #B8719F;
 	text-align: center;
 }
-
 .why-compare-body {
 	background-color: #F9F8F2;
 }
-
 .references {
 	background-color: #F9F8F2;
 }
-
 .contribute {
 	background-color: #D0A1C0;
 }
-
 .show-off-icon .mega-octicon {
 	font-size: 128px;
 }
-
 #ds-plot {
 	padding: 15px;
 	min-height: 500px;

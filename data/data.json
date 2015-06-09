@@ -1,6 +1,10 @@
 [{
   "name": "Rodriguez-Manzo, Puster et. al.",
   "bib": "doi:10.1021/acsnano.5b02531",
+  "dna": 15e3,
+  "electrolyte": "KCl",
+  "electrolyte_concentration": 1.1,
+  "sigma": "12.0",
   "data": [
     [16.8, 9.7],
     [12.8, 9.4],
@@ -18,6 +22,10 @@
 }, {
   "name": "Wanunu Nature Nano",
   "bib": "Wanunu2010",
+  "dna": 3e3,
+  "electrolyte": "KCl",
+  "electrolyte_concentration": 1,
+  "sigma": "13.7 (21&nbsp;&deg;C)",
   "data": [
     [20, 10],
     [19.2, 7.4],
@@ -27,6 +35,10 @@
 }, {
   "name": "PNAS graphene",
   "bib": "Garaj23072013",
+  "dna": 10e3,
+  "electrolyte": "KCl",
+  "electrolyte_concentration": 3,
+  "sigma": "27.5",
   "data": [
     [18.4, 10.1],
     [21.1, 7.6],
@@ -42,18 +54,30 @@
 }, {
   "name": "Hall ACS Nano",
   "bib": "doi:10.1021/nn501694n",
+  "dna": 3e3,
+  "electrolyte": "NaCl",
+  "electrolyte_concentration": 0.9,
+  "sigma": "7.6",
   "data": [
     [39.1, 12.4]
   ]
 }, {
   "name": "HfO2",
   "bib": "doi:10.1021/nn404326f",
+  "dna": 100,
+  "electrolyte": "KCl",
+  "electrolyte_concentration": 1,
+  "sigma": "9.6 (25&nbsp;&deg;C)",
   "data": [
     [11.3, 3.4]
   ]
 }, {
   "name": "Drndic Graphene",
   "bib": "doi:10.1021/nl101046t",
+  "dna": 400,
+  "electrolyte": "KCl",
+  "electrolyte_concentration": 1,
+  "sigma": "10.8",
   "data": [
     [25.0, 3.8],
     [28.0, 2.0]
@@ -61,18 +85,30 @@
 }, {
   "name": "Nature Graphene",
   "bib": "Garaj2010",
+  "dna": 10e3,
+  "electrolyte": "KCl",
+  "electrolyte_concentration": 3,
+  "sigma": "28.9 (24&nbsp;&deg;C)",
   "data": [
     [39.2, 2.9]
   ]
 }, {
   "name": "BN Adv Mater",
   "bib": "ADMA:ADMA201301336",
+  "dna": 10e3,
+  "electrolyte": "KCl",
+  "electrolyte_concentration": 3,
+  "sigma": "28.7",
   "data": [
     [37.6, 3.8]
   ]
 }, {
   "name": "BN Sci Rep",
   "bib": "Zhou2013",
+  "dna": 48e3,
+  "electrolyte": "KCl",
+  "electrolyte_concentration": 1,
+  "sigma": "10.8",
   "data": [
     [20.0, 2.8]
   ]

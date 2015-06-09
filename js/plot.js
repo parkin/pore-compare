@@ -227,7 +227,15 @@ function plotChartAndTable(series) {
     t.push(series[i].bib);
     // push first author
     t.push(get_author_from_key(series[i].bib))
-      // push max delta G, should be first datapoint
+      // push dna
+    t.push(series[i].dna);
+    // push electrolyte-concentration
+    t.push(series[i].electrolyte_concentration);
+    // push electrolyte
+    t.push(series[i].electrolyte);
+    // push sigma
+    t.push(series[i].sigma);
+    // push max delta G, should be first datapoint
     t.push(series[i].data[0][1]);
     tableStuff.push(t);
   }
@@ -239,7 +247,7 @@ function plotChartAndTable(series) {
   $('#ds-table').dataTable({
     "data": tableStuff,
     "order": [
-      [2, "desc"]
+      [6, "desc"]
     ],
     "columns": [{
       "title": "Cite",
@@ -255,7 +263,32 @@ function plotChartAndTable(series) {
         return data + ret;
       },
     }, {
-      "title": "ΔG (nS) scaled to 1&nbsp;M&nbsp;KCl @ 23&nbsp;&deg;C"
+      "title": "dsDNA (bp)",
+      "className": "dt-body-right",
+      "render": function(data, type, row) {
+        if (type == "display" && data > 1000) {
+          return (data / 1000) + ' k';
+        }
+        return data;
+      }
+    }, {
+      "title": "Electrolyte",
+      "className": "dt-body-right",
+      "render": function(data, type, row) {
+        if (type == "display") {
+          return data + ' M ' + row[4];
+        }
+        return data;
+      }
+    }, {
+      "title": "Electrolyte Name",
+      "visible": false
+    }, {
+      "title": "σ (S/m)",
+      "className": "dt-body-right"
+    }, {
+      "title": "ΔG (nS) scaled to <br/>1&nbsp;M&nbsp;KCl @ 23&nbsp;&deg;C (10.8 S/m)",
+      "className": "dt-body-right"
     }]
   });
 
