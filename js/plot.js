@@ -49,11 +49,41 @@ var t_2nm_data = generate_thickness_isoline(2, d_dna, 5.950);
 
 var bibtex;
 
+function get_nature_format(citation) {
+  console.log(citation);
+  var tags = citation.entryTags;
+  var authors = tags.author;
+  var author = authors.split('and')[0]; // get first author
+  if (authors.split('and').length > 1) {
+    author += " <i>et al</i>"
+  }
+  var result = '<li>';
+  result += author + '.';
+  result += ' ' + tags.title + '.';
+  result += ' <i>' + tags.journal + '</i>';
+  result += ' <b>' + tags.volume + '</b>,';
+  result += ' ' + tags.pages;
+  result += ' (' + tags.year + ').'
+  if (tags.hasOwnProperty('url')) {
+    result += ' <a href="' + tags.url + '">(Link)</a>';
+  }
+  result += '</li>'
+  return result;
+}
+
+function get_formatted_citation_from_key(key) {
+  var citation = bibtex[key];
+  return get_nature_format(citation);
+}
+
 // Refreshes the <sup class="bib-*"></sup> with the correct citations.
 function refresh_bib() {
   if (bibtex == null) {
     return
   }
+  // empty the references ordered list
+  $('#references').empty()
+
   var cited = [];
   var count = 0;
   var citations = $('[class^=bib-]').each(function(i) {
@@ -62,9 +92,11 @@ function refresh_bib() {
     var key = citation[0].className.replace("bib-", "");
     var index = cited.indexOf(key);
     if (index < 0) {
-      citation.append(count + 1);
-      cited.push(key);
       count++;
+      citation.append(count);
+      cited.push(key);
+      // We also add this to the references list
+      $('#references').append(get_formatted_citation_from_key(key));
     } else {
       citation.append(index + 1);
     }
@@ -99,9 +131,9 @@ function plotChartAndTable(series) {
       verticalAlign: 'bottom',
       padding: 3,
       borderWidth: 0,
-      labelFormatter: function () {
+      labelFormatter: function() {
         var ret = this.name;
-        if(this.options.hasOwnProperty('bib')){
+        if (this.options.hasOwnProperty('bib')) {
           ret += '<sup class="bib-' + this.options.bib + '"></sup>';
         }
         return ret;
@@ -204,10 +236,10 @@ function plotChartAndTable(series) {
       // linkify if the link is available
       "render": function(data, type, row) {
         var ret = '';
-        if (row[3].length > 0){
+        if (row[3].length > 0) {
           ret += '<sup class="bib-' + row[3] + '"></sup>';
         }
-        if (row[2].length > 0){
+        if (row[2].length > 0) {
           return '<a href="' + row[2] + '">' + data + '</a>' + ret;
         }
         return data + ret;
