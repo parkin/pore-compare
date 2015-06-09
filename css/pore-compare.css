@@ -76,6 +76,7 @@ footer {
 }
 
 #ds-plot {
+	padding: 15px;
 	min-height: 500px;
 }
 

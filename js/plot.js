@@ -144,6 +144,9 @@ $(document).ready(function() {
       // Create the table row. TODO remove if/else, should not need once all the data is collected.
       var t = [];
       t.push(series[i].name);
+      // push max, should be first datapoint
+      t.push(series[i].data[0][1]);
+      // push link if exists, otherwise blank
       if (series[i].hasOwnProperty('link')) {
         t.push(series[i].link);
       } else {
@@ -158,8 +161,11 @@ $(document).ready(function() {
     // Add the datatable
     $('#ds-table').dataTable({
       "data": tableStuff,
+      "order": [[ 1, "desc" ]],
       "columns": [{
         "title": "Name"
+      }, {
+        "title": "&Delta;G"
       }, {
         "title": "Link",
         "render": function(data, type, row) {
