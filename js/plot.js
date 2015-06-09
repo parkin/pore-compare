@@ -155,7 +155,6 @@ $(document).ready(function() {
     // Plot the highcharts chart
     $('#ds-plot').highcharts(options);
 
-    console.log(tableStuff);
     // Add the datatable
     $('#ds-table').dataTable({
       "data": tableStuff,
