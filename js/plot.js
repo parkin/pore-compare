@@ -141,18 +141,34 @@ $(document).ready(function() {
       }; // Set the marker radius. There must be a global way of doing this.
       options.series.push(series[i]);
 
-      tableStuff.push([temp.name]);
+      // Create the table row. TODO remove if/else, should not need once all the data is collected.
+      var t = [];
+      t.push(series[i].name);
+      if (series[i].hasOwnProperty('link')) {
+        t.push(series[i].link);
+      } else {
+        t.push("");
+      }
+      tableStuff.push(t);
     }
 
     // Plot the highcharts chart
     $('#ds-plot').highcharts(options);
 
+    console.log(tableStuff);
     // Add the datatable
     $('#ds-table').dataTable({
       "data": tableStuff,
-      "columns": [
-        {"title": "Name"}
-      ]
+      "columns": [{
+        "title": "Name"
+      }, {
+        "title": "Link",
+        "render": function(data, type, row) {
+          if (data.length > 0)
+            return '<a href="' + data + '">Link</a>';
+          return '';
+        },
+      }]
     });
 
   }).fail(function(jqxhr, textStatus, error) {

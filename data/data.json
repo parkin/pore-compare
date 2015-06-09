@@ -1,5 +1,9 @@
 [{
-  "name": "Rodriguez-Manzo & Puster (a-Si)",
+  "authors": "Rodriguez-Manzo, Puster et. al.",
+  "name": "Rodriguez-Manzo, Puster et. al.",
+  "journal": "ACS Nano",
+  "year": "2015",
+  "link": "http://pubs.acs.org/doi/abs/10.1021/acsnano.5b02531",
   "data": [
     [7.9, 6.8],
     [20.8, 4.7],
