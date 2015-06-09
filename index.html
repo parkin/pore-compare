@@ -9,8 +9,10 @@
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/skeleton.css" />
   <link rel="stylesheet" href="css/pore-compare.css" />
-  <link rel="stylesheet" href="assets/octicons/octicons.css">
-  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  <link rel="stylesheet" href="assets/octicons/octicons.css"/>
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <link rel="stylesheet" href="css/jquery.dataTables.min.css"/>
   </script>
 </head>
 
@@ -136,6 +138,14 @@
             </div>
           </div>
         </div>
+        <div class="container">
+          <div class="row">
+            <div class="twelve columns">
+              <table id="ds-table">
+              </table>
+            </div>
+          </div>
+        </div>
       </section>
 
       <a name="contribute"></a>
@@ -167,7 +177,7 @@
                 and tell us about your publication, $ G_o $, and $ \Delta G $.
                 Don't forget to scale your data to 1&nbsp;M&nbsp; KCl at 23&nbsp;&deg;C!
               </h6>
-            </div>
+            </jdiv>
           </div>
         </div>
       </section>
@@ -202,6 +212,7 @@
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
   </script>
+  <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 </body>
 
 </html>

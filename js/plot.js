@@ -127,20 +127,37 @@ $(document).ready(function() {
     }]
   };
 
-  // Grab the json data, add to highcharts options and plot.
-  $.getJSON('data/data.json', function(data) {
-    var series = data;
+  // Grab the json data
+  $.getJSON('data/data.json', function(series) {
+    var tableStuff = [];
     var temp;
+
+    // Format the highcharts options as well as the dataTables data
     for (var i = 0; i < series.length; i++) {
-        temp = series[i];
-        temp.type = 'scatter';
-        temp.marker = {radius: 8}; // Set the marker radius. There must be a global way of doing this.
-        options.series.push(series[i]);
+      temp = series[i];
+      temp.type = 'scatter';
+      temp.marker = {
+        radius: 8
+      }; // Set the marker radius. There must be a global way of doing this.
+      options.series.push(series[i]);
+
+      tableStuff.push([temp.name]);
     }
+
+    // Plot the highcharts chart
     $('#ds-plot').highcharts(options);
-  }).fail(function( jqxhr, textStatus, error ) {
+
+    // Add the datatable
+    $('#ds-table').dataTable({
+      "data": tableStuff,
+      "columns": [
+        {"title": "Name"}
+      ]
+    });
+
+  }).fail(function(jqxhr, textStatus, error) {
     var err = textStatus + ", " + error;
-    console.log( "Request Failed: " + err );
+    console.log("Request Failed: " + err);
   });
 
 });
