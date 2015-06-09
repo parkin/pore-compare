@@ -72,9 +72,23 @@ function get_nature_format(citation) {
   return result;
 }
 
+function get_author_from_key(key) {
+  var citation = bibtex[key];
+  var authors = citation.entryTags.author.split(' and ');
+  var author = authors[0]; // get first author
+  if (authors.length > 1) {
+    author += " <i>et al.</i>"
+  }
+  return author;
+}
+
 function get_formatted_citation_from_key(key) {
   var citation = bibtex[key];
   return get_nature_format(citation);
+}
+
+function get_citation_html(key) {
+  return '<sup class="bib-' + key + '"></sup>';
 }
 
 // Refreshes the <sup class="bib-*"></sup> with the correct citations.
@@ -102,10 +116,6 @@ function refresh_bib() {
       citation.append('<a href="#bib-' + key + '">' + (index + 1) + '</a>');
     }
   });
-}
-
-function get_citation_html(key) {
-  return '<sup class="bib-' + key + '"></sup>';
 }
 
 function plotChartAndTable(series) {
@@ -137,9 +147,10 @@ function plotChartAndTable(series) {
       padding: 3,
       borderWidth: 0,
       labelFormatter: function() {
-        var ret = this.name;
         if (this.options.hasOwnProperty('bib')) {
-          ret += get_citation_html(this.options.bib);
+          return get_author_from_key(this.options.bib) + get_citation_html(this.options.bib);
+        } else {
+          return this.name;
         }
         return ret;
       },
@@ -209,21 +220,16 @@ function plotChartAndTable(series) {
 
     // Create the table row. TODO remove if/else, should not need once all the data is collected.
     var t = [];
-    t.push(series[i].name);
-    // push max delta G, should be first datapoint
-    t.push(series[i].data[0][1]);
     // push bib if exists, otherwise blank
     if (series[i].hasOwnProperty('bib')) {
-      // push link first
-      t.push(bibtex[series[i].bib].entryTags.url);
-      // push bib reference
       t.push(series[i].bib);
+      t.push(get_author_from_key(series[i].bib))
     } else {
-      // push link first
       t.push('');
-      // push bib reference
-      t.push('');
+      t.push(series[i].name);
     }
+    // push max delta G, should be first datapoint
+    t.push(series[i].data[0][1]);
     tableStuff.push(t);
   }
 
@@ -234,29 +240,23 @@ function plotChartAndTable(series) {
   $('#ds-table').dataTable({
     "data": tableStuff,
     "order": [
-      [1, "desc"]
+      [2, "desc"]
     ],
     "columns": [{
+      "title": "Cite",
+      "visible": false
+    }, {
       "title": "Name",
       // linkify if the link is available
       "render": function(data, type, row) {
         var ret = '';
-        if (row[3].length > 0) {
-          ret += get_citation_html(row[3]);
-        }
-        if (row[2].length > 0) {
-          return '<a href="' + row[2] + '">' + data + '</a>' + ret;
+        if (row[0].length > 0) {
+          ret += get_citation_html(row[0]);
         }
         return data + ret;
       },
     }, {
       "title": "ΔG"
-    }, {
-      "title": "Link",
-      "visible": false
-    }, {
-      "title": "Cite",
-      "visible": false
     }]
   });
 
