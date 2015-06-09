@@ -75,9 +75,14 @@ footer {
 	padding: 15px;
 	min-height: 500px;
 }
-
 th {
 	background-color: #7A1B59;
 	padding: 6px;
 	color: #DCCBD6;
 }
+@media (max-width: 800px) {
+	.container.medium-full-width {
+		width: 100%;
+		padding: 0;
+	}
+)
