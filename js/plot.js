@@ -137,7 +137,12 @@ function plotChartAndTable(series) {
       },
     },
     tooltip: {
-      valueSuffix: ' nS'
+      useHTML: true,
+      formatter: function() {
+        return get_author_from_key(this.series.options.bib) +
+          '<br/>Go: ' + this.x + ' nS' +
+          '<br/>ΔG: ' + this.y + ' nS';
+      }
     },
     legend: {
       layout: 'horizontal',
@@ -222,7 +227,7 @@ function plotChartAndTable(series) {
     t.push(series[i].bib);
     // push first author
     t.push(get_author_from_key(series[i].bib))
-    // push max delta G, should be first datapoint
+      // push max delta G, should be first datapoint
     t.push(series[i].data[0][1]);
     tableStuff.push(t);
   }
@@ -250,7 +255,7 @@ function plotChartAndTable(series) {
         return data + ret;
       },
     }, {
-      "title": "ΔG"
+      "title": "ΔG (nS) scaled to 1&nbsp;M&nbsp;KCl @ 23&nbsp;&deg;C"
     }]
   });
 
