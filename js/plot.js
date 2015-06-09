@@ -163,16 +163,18 @@ $(document).ready(function() {
       "data": tableStuff,
       "order": [[ 1, "desc" ]],
       "columns": [{
-        "title": "Name"
+        "title": "Name",
+        // linkify if the link is available
+        "render": function(data, type, row) {
+          if (row[2].length > 0)
+            return '<a href="' + row[2] + '">' + data + '</a>';
+          return data;
+        },
       }, {
         "title": "&Delta;G"
       }, {
         "title": "Link",
-        "render": function(data, type, row) {
-          if (data.length > 0)
-            return '<a href="' + data + '">Link</a>';
-          return '';
-        },
+        "visible": false
       }]
     });
 
