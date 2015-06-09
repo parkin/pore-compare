@@ -257,7 +257,7 @@ function plotChartAndTable(series) {
       "title": "Cite",
       "visible": false
     }, {
-      "title": "Name",
+      "title": "Publication",
       // linkify if the link is available
       "render": function(data, type, row) {
         var ret = '';
