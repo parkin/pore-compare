@@ -248,7 +248,8 @@ function plotChartAndTable(series) {
   $('#ds-plot').highcharts(options);
 
   // Add the datatable
-  $('#ds-table').dataTable({
+  var ds_table = $('#ds-table').dataTable({
+    "scrollX": true,
     "data": tableStuff,
     "order": [
       [7, "desc"]
@@ -297,6 +298,13 @@ function plotChartAndTable(series) {
       "className": "dt-body-right"
     }]
   });
+
+  // For some reason, need this hack to redraw table after 10 ms so the header
+  // and body of table are aligned properly.
+  setTimeout(function ()
+  {
+    ds_table.fnAdjustColumnSizing();
+  }, 10 );
 
 }
 $(document).ready(function() {

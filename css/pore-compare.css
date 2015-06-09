@@ -85,4 +85,7 @@ th {
 		width: 100%;
 		padding: 0;
 	}
-)
+}
+th, td {
+	white-space: nowrap;
+}
