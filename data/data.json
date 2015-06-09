@@ -1,9 +1,6 @@
 [{
 
-  "authors": "Rodriguez-Manzo, Puster et. al.",
   "name": "Rodriguez-Manzo, Puster et. al.",
-  "journal": "ACS Nano",
-  "year": "2015",
   "bib": "doi:10.1021/acsnano.5b02531",
   "link": "http://pubs.acs.org/doi/abs/10.1021/acsnano.5b02531",
   "data": [
@@ -30,6 +27,7 @@
   ]
 }, {
   "name": "PNAS graphene",
+  "bib": "Garaj23072013",
   "data": [
     [18.4, 10.1],
     [21.1, 7.6],
