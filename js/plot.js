@@ -175,16 +175,16 @@ function plotChartAndTable(series) {
     t.push(series[i].name);
     // push max delta G, should be first datapoint
     t.push(series[i].data[0][1]);
-    // push link if exists, otherwise blank
-    if (series[i].hasOwnProperty('link')) {
-      t.push(series[i].link);
-    } else {
-      t.push("");
-    }
     // push bib if exists, otherwise blank
     if (series[i].hasOwnProperty('bib')) {
+      // push link first
+      t.push(bibtex[series[i].bib].entryTags.url);
+      // push bib reference
       t.push(series[i].bib);
     } else {
+      // push link first
+      t.push('');
+      // push bib reference
       t.push('');
     }
     tableStuff.push(t);
