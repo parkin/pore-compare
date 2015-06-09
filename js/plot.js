@@ -50,7 +50,6 @@ var t_2nm_data = generate_thickness_isoline(2, d_dna, 5.950);
 var bibtex;
 
 function get_nature_format(citation) {
-  console.log(citation);
   var tags = citation.entryTags;
   var authors = tags.author.split(' and ');
   var author = authors[0]; // get first author
@@ -152,7 +151,6 @@ function plotChartAndTable(series) {
         } else {
           return this.name;
         }
-        return ret;
       },
       useHTML: true
     },
@@ -220,14 +218,10 @@ function plotChartAndTable(series) {
 
     // Create the table row. TODO remove if/else, should not need once all the data is collected.
     var t = [];
-    // push bib if exists, otherwise blank
-    if (series[i].hasOwnProperty('bib')) {
-      t.push(series[i].bib);
-      t.push(get_author_from_key(series[i].bib))
-    } else {
-      t.push('');
-      t.push(series[i].name);
-    }
+    // push bib reference key
+    t.push(series[i].bib);
+    // push first author
+    t.push(get_author_from_key(series[i].bib))
     // push max delta G, should be first datapoint
     t.push(series[i].data[0][1]);
     tableStuff.push(t);
