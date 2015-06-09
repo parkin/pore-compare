@@ -229,6 +229,8 @@ function plotChartAndTable(series) {
     t.push(series[i].bib);
     // push first author
     t.push(get_author_from_key(series[i].bib))
+    // push material
+    t.push(series[i].material);
       // push dna
     t.push(series[i].dna);
     // push electrolyte-concentration
@@ -249,7 +251,7 @@ function plotChartAndTable(series) {
   $('#ds-table').dataTable({
     "data": tableStuff,
     "order": [
-      [6, "desc"]
+      [7, "desc"]
     ],
     "columns": [{
       "title": "Cite",
@@ -265,6 +267,8 @@ function plotChartAndTable(series) {
         return data + ret;
       },
     }, {
+      "title": "Material"
+    },{
       "title": "dsDNA (bp)",
       "className": "dt-body-right",
       "render": function(data, type, row) {
@@ -278,7 +282,7 @@ function plotChartAndTable(series) {
       "className": "dt-body-right",
       "render": function(data, type, row) {
         if (type == "display") {
-          return data + ' M ' + row[4];
+          return data + ' M ' + row[5];
         }
         return data;
       }

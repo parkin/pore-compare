@@ -4,6 +4,7 @@
   "dna": 15e3,
   "electrolyte": "KCl",
   "electrolyte_concentration": 1.1,
+  "material": "α-Si",
   "sigma": "12.0",
   "data": [
     [16.8, 9.7],
@@ -25,6 +26,7 @@
   "dna": 3e3,
   "electrolyte": "KCl",
   "electrolyte_concentration": 1,
+  "material": "SiN<sub>x</sub>",
   "sigma": "13.7 (21&nbsp;&deg;C)",
   "data": [
     [20, 10],
@@ -38,6 +40,7 @@
   "dna": 10e3,
   "electrolyte": "KCl",
   "electrolyte_concentration": 3,
+  "material": "Graphene",
   "sigma": "27.5",
   "data": [
     [18.4, 10.1],
@@ -57,6 +60,7 @@
   "dna": 3e3,
   "electrolyte": "NaCl",
   "electrolyte_concentration": 0.9,
+  "material": "SiN<sub>x</sub>",
   "sigma": "7.6",
   "data": [
     [39.1, 12.4]
@@ -67,6 +71,7 @@
   "dna": 100,
   "electrolyte": "KCl",
   "electrolyte_concentration": 1,
+  "material": "HfO<sub>2</sub>",
   "sigma": "9.6 (25&nbsp;&deg;C)",
   "data": [
     [11.3, 3.4]
@@ -77,6 +82,7 @@
   "dna": 400,
   "electrolyte": "KCl",
   "electrolyte_concentration": 1,
+  "material": "Graphene",
   "sigma": "10.8",
   "data": [
     [25.0, 3.8],
@@ -88,6 +94,7 @@
   "dna": 10e3,
   "electrolyte": "KCl",
   "electrolyte_concentration": 3,
+  "material": "Graphene",
   "sigma": "28.9 (24&nbsp;&deg;C)",
   "data": [
     [39.2, 2.9]
@@ -98,6 +105,7 @@
   "dna": 10e3,
   "electrolyte": "KCl",
   "electrolyte_concentration": 3,
+  "material": "BN",
   "sigma": "28.7",
   "data": [
     [37.6, 3.8]
@@ -108,6 +116,7 @@
   "dna": 48e3,
   "electrolyte": "KCl",
   "electrolyte_concentration": 1,
+  "material": "BN",
   "sigma": "10.8",
   "data": [
     [20.0, 2.8]
