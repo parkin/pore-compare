@@ -86,7 +86,7 @@ function plotChartAndTable(series) {
     },
     yAxis: {
       title: {
-        text: '&Delta;G (nS)',
+        text: 'ΔG (nS)',
         useHTML: true
       },
     },
@@ -110,7 +110,7 @@ function plotChartAndTable(series) {
     },
     series: [{
       type: 'spline',
-      name: 'DG = Go',
+      name: 'ΔG = Go',
       color: '#000000',
       lineWidth: 2,
       dashStyle: 'dash',
@@ -213,7 +213,7 @@ function plotChartAndTable(series) {
         return data + ret;
       },
     }, {
-      "title": "&Delta;G"
+      "title": "ΔG"
     }, {
       "title": "Link",
       "visible": false
