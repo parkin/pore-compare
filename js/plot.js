@@ -52,12 +52,13 @@ var bibtex;
 function get_nature_format(citation) {
   console.log(citation);
   var tags = citation.entryTags;
-  var authors = tags.author;
-  var author = authors.split('and')[0]; // get first author
-  if (authors.split('and').length > 1) {
+  var authors = tags.author.split(' and ');
+  var author = authors[0]; // get first author
+  if (authors.length > 1) {
     author += " <i>et al</i>"
   }
   var result = '<li>';
+  result += '<a id="bib-' + citation.citationKey + '"></a>';
   result += author + '.';
   result += ' ' + tags.title + '.';
   result += ' <i>' + tags.journal + '</i>';
@@ -93,14 +94,18 @@ function refresh_bib() {
     var index = cited.indexOf(key);
     if (index < 0) {
       count++;
-      citation.append(count);
+      citation.append('<a href="#bib-' + key + '">' + count + '</a>');
       cited.push(key);
       // We also add this to the references list
       $('#references').append(get_formatted_citation_from_key(key));
     } else {
-      citation.append(index + 1);
+      citation.append('<a href="#bib-' + key + '">' + (index + 1) + '</a>');
     }
   });
+}
+
+function get_citation_html(key) {
+  return '<sup class="bib-' + key + '"></sup>';
 }
 
 function plotChartAndTable(series) {
@@ -134,7 +139,7 @@ function plotChartAndTable(series) {
       labelFormatter: function() {
         var ret = this.name;
         if (this.options.hasOwnProperty('bib')) {
-          ret += '<sup class="bib-' + this.options.bib + '"></sup>';
+          ret += get_citation_html(this.options.bib);
         }
         return ret;
       },
@@ -237,7 +242,7 @@ function plotChartAndTable(series) {
       "render": function(data, type, row) {
         var ret = '';
         if (row[3].length > 0) {
-          ret += '<sup class="bib-' + row[3] + '"></sup>';
+          ret += get_citation_html(row[3]);
         }
         if (row[2].length > 0) {
           return '<a href="' + row[2] + '">' + data + '</a>' + ret;
