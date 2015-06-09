@@ -47,6 +47,29 @@ var t_0nm_data = generate_thickness_isoline(0, 2.5, 4.167);
 var t_1nm_data = generate_thickness_isoline(1, d_dna, 5.636); // DeltaG = 45 nS for t = 1nm and d = 5.19 nm
 var t_2nm_data = generate_thickness_isoline(2, d_dna, 5.950);
 
+var bibtex;
+
+function refresh_bib() {
+  if (bibtex == null) {
+    return
+  }
+  var cited = [];
+  var count = 0;
+  var citations = $('[class^=bib-]').each(function(i) {
+    var citation = $(this);
+    citation.empty();
+    var classN = citation[0].className.replace("bib-", "");
+    var index = cited.indexOf(classN);
+    if (index < 0) {
+      citation.append(count + 1);
+      cited.push(classN);
+      count++;
+    } else {
+      citation.append(index + 1);
+    }
+  });
+}
+
 
 $(document).ready(function() {
 
@@ -152,6 +175,12 @@ $(document).ready(function() {
       } else {
         t.push("");
       }
+      // push bib if exists, otherwise blank
+      if (series[i].hasOwnProperty('bib')) {
+        t.push(series[i].bib);
+      } else {
+        t.push('');
+      }
       tableStuff.push(t);
     }
 
@@ -161,13 +190,18 @@ $(document).ready(function() {
     // Add the datatable
     $('#ds-table').dataTable({
       "data": tableStuff,
-      "order": [[ 1, "desc" ]],
+      "order": [
+        [1, "desc"]
+      ],
       "columns": [{
         "title": "Name",
         // linkify if the link is available
         "render": function(data, type, row) {
+          var ret = '';
+          if (row[3].length > 0)
+           ret += '<sup class="bib-' + row[3] + '"></sup>';
           if (row[2].length > 0)
-            return '<a href="' + row[2] + '">' + data + '</a>';
+            return ret + '<a href="' + row[2] + '">' + data + '</a>';
           return data;
         },
       }, {
@@ -175,12 +209,25 @@ $(document).ready(function() {
       }, {
         "title": "Link",
         "visible": false
+      }, {
+        "title": "Cite",
+        "visible": false
       }]
     });
 
   }).fail(function(jqxhr, textStatus, error) {
     var err = textStatus + ", " + error;
     console.log("Request Failed: " + err);
+  });
+
+  // Load the bibliography
+  $.ajax({
+    url: "assets/bib.bib",
+    dataType: "text",
+    success: function(data) {
+      bibtex = bibtexParse.toJSON(data);
+      refresh_bib();
+    }
   });
 
 });
