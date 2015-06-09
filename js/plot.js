@@ -48,197 +48,99 @@ var t_1nm_data = generate_thickness_isoline(1, d_dna, 5.636); // DeltaG = 45 nS 
 var t_2nm_data = generate_thickness_isoline(2, d_dna, 5.950);
 
 
-$('#ds-plot').highcharts({
-  title: {
-    text: 'dsDNA Conductance Comparison',
-    x: -20 //center
-  },
-  xAxis: {
+$(document).ready(function() {
+
+  // Set the highcharts plot options
+  var options = {
     title: {
-      text: 'Go (nS)'
+      text: 'dsDNA Conductance Comparison',
+      x: -20 //center
+    },
+    xAxis: {
+      title: {
+        text: 'Go (nS)'
+      }
+    },
+    yAxis: {
+      title: {
+        text: '&Delta;G (nS)',
+        useHTML: true
+      },
+    },
+    tooltip: {
+      valueSuffix: ' nS'
+    },
+    legend: {
+      layout: 'horizontal',
+      align: 'left',
+      verticalAlign: 'bottom',
+      padding: 3,
+      borderWidth: 0
+    },
+    series: [{
+      type: 'spline',
+      name: 'DG = Go',
+      color: '#000000',
+      lineWidth: 2,
+      dashStyle: 'dash',
+      marker: {
+        enabled: false
+      },
+      enableMouseTracking: false,
+      data: [
+        [2, 2],
+        [15, 15],
+      ]
+    }, {
+      type: 'spline',
+      lineWidth: 1,
+      color: '#555555',
+      dashStyle: 'dot',
+      name: 't = 0 nm',
+      marker: {
+        enabled: false
+      },
+      enableMouseTracking: false,
+      data: t_0nm_data
+    }, {
+      type: 'spline',
+      name: 't = 1 nm',
+      lineWidth: 1,
+      color: '#555555',
+      dashStyle: 'dash',
+      marker: {
+        enabled: false
+      },
+      enableMouseTracking: false,
+      data: t_1nm_data
+    }, {
+      type: 'spline',
+      lineWidth: 1,
+      color: '#555555',
+      dashStyle: 'longdash',
+      name: 't = 2 nm',
+      marker: {
+        enabled: false
+      },
+      enableMouseTracking: false,
+      data: t_2nm_data
+    }]
+  };
+
+  // Grab the json data, add to highcharts options and plot.
+  $.getJSON('data/data.json', function(data) {
+    var series = data;
+    var temp;
+    for (var i = 0; i < series.length; i++) {
+        temp = series[i];
+        temp.type = 'scatter';
+        temp.marker = {radius: 8}; // Set the marker radius. There must be a global way of doing this.
+        options.series.push(series[i]);
     }
-  },
-  yAxis: {
-    title: {
-      text: '&Delta;G (nS)',
-      useHTML: true
-    },
-  },
-  tooltip: {
-    valueSuffix: ' nS'
-  },
-  legend: {
-    layout: 'horizontal',
-    align: 'left',
-    verticalAlign: 'bottom',
-    padding: 3,
-    borderWidth: 0
-  },
-  series: [{
-    type: 'spline',
-    name: 'DG = Go',
-    color: '#000000',
-    lineWidth: 2,
-    dashStyle: 'dash',
-    marker: {
-      enabled: false
-    },
-    enableMouseTracking: false,
-    data: [
-      [2, 2],
-      [15, 15],
-    ]
-  }, {
-    type: 'spline',
-    lineWidth: 1,
-    color: '#555555',
-    dashStyle: 'dot',
-    name: 't = 0 nm',
-    marker: {
-      enabled: false
-    },
-    enableMouseTracking: false,
-    data: t_0nm_data
-  }, {
-    type: 'spline',
-    name: 't = 1 nm',
-    lineWidth: 1,
-    color: '#555555',
-    dashStyle: 'dash',
-    marker: {
-      enabled: false
-    },
-    enableMouseTracking: false,
-    data: t_1nm_data
-  }, {
-    type: 'spline',
-    lineWidth: 1,
-    color: '#555555',
-    dashStyle: 'longdash',
-    name: 't = 2 nm',
-    marker: {
-      enabled: false
-    },
-    enableMouseTracking: false,
-    data: t_2nm_data
-  }, {
-    type: 'scatter',
-    name: 'Rodriguez-Manzo & Puster (a-Si)',
-    marker: {
-      radius: 8,
-    },
-    data: [
-      [7.9, 6.8],
-      [20.8, 4.7],
-      [10.3, 7.4],
-      [5.9, 3.4],
-      [12.4, 7.9],
-      [5.1, 3.6],
-      [18.7, 6.6],
-      [25.8, 6.5],
-      [9.0, 7.3],
-      [16.8, 9.7],
-      [12.8, 9.4],
-      [22.0, 9.1]
-    ]
-  }, {
-    type: 'scatter',
-    name: 'Wanunu Nature Nano',
-    marker: {
-      radius: 8,
-    },
-    data: [
-      [20, 10],
-      [19.2, 7.4],
-      [12.6, 6.3],
-      [7.1, 3.2]
-    ]
-  }, {
-    type: 'scatter',
-    name: 'PNAS graphene',
-    marker: {
-      radius: 8,
-    },
-    data: [
-      [18.4, 10.1],
-      [21.1, 7.6],
-      [22.6, 6.9],
-      [27.5, 4.7],
-      [35.6, 4.4],
-      [34.4, 4.2],
-      [27.0, 4.2],
-      [40.5, 3.2],
-      [43.0, 3.7],
-      [60.1, 2.5]
-    ]
-  }, {
-    type: 'scatter',
-    name: 'Hall ACS Nano',
-    marker: {
-      radius: 8,
-    },
-    data: [
-      [39.1, 12.4]
-    ]
-  }, {
-    name: 'HfO2',
-    type: 'scatter',
-    marker: {
-      radius: 8
-    },
-    data: [
-      [11.3, 3.4]
-    ]
-  }, {
-    name: 'Hitachi',
-    type: 'scatter',
-    marker: {
-      radius: 8
-    },
-    data: [
-      [8.6, 4.8],
-      [7.5, 4.5],
-      [4.1, 3.1],
-      [2.6, 2.4],
-      [3.0, 2.1]
-    ]
-  }, {
-    name: 'Drndic Graphene',
-    type: 'scatter',
-    marker: {
-      radius: 8
-    },
-    data: [
-      [25.0, 3.8],
-      [28.0, 2.0],
-    ]
-  }, {
-    name: 'Nature Graphene',
-    type: 'scatter',
-    marker: {
-      radius: 8
-    },
-    data: [
-      [39.2, 2.9],
-    ]
-  }, {
-    name: 'BN Adv Mater',
-    type: 'scatter',
-    marker: {
-      radius: 8
-    },
-    data: [
-      [37.6, 3.8],
-    ]
-  }, {
-    name: 'BN Sci Rep',
-    type: 'scatter',
-    marker: {
-      radius: 8
-    },
-    data: [
-      [20.0, 2.8],
-    ]
-  }
-  ]
+    $('#ds-plot').highcharts(options);
+  }).fail(function( jqxhr, textStatus, error ) {
+    var err = textStatus + ", " + error;
+    console.log( "Request Failed: " + err );
+  });
+
 });
