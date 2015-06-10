@@ -1,3 +1,4 @@
+// Variaables for DNA calculations
 var d_dna = 2.2; // 2.2 nm diameter dsDNA
 var d_dna_sq = Math.pow(d_dna, 2);
 var sigma = 10.8; // KCl conductivity in nS/nm at 23 deg C
@@ -90,6 +91,59 @@ function get_citation_html(key) {
   return '<sup class="bib-' + key + '"></sup>';
 }
 
+/**
+Sample row declaration
+var t = {
+      'bib': series[i].bib,
+      'name': get_author_from_key(series[i].bib),
+      'material': series[i].material,
+      'dna': series[i].dna,
+      'electrolyte_concentration': series[i].electrolyte_concentration,
+      'electrolyte': series[i].electrolyte,
+      'sigma': series[i].sigma,
+      'deltaG': series[i].data[0][1]
+    };
+**/
+function format_table_row_array(t) {
+  var result = [];
+  t.hasOwnProperty('bib') ? result.push(t.bib) : result.push('');
+  t.hasOwnProperty('name') ? result.push(t.name) : result.push('');
+  t.hasOwnProperty('material') ? result.push(t.material) : result.push('');
+  t.hasOwnProperty('dna') ? result.push(t.dna) : result.push('');
+  t.hasOwnProperty('electrolyte_concentration') ? result.push(t.electrolyte_concentration) : result.push('');
+  t.hasOwnProperty('electrolyte') ? result.push(t.electrolyte) : result.push('');
+  t.hasOwnProperty('sigma') ? result.push(t.sigma) : result.push('');
+  t.hasOwnProperty('deltaG') ? result.push(t.deltaG) : result.push('');
+  return result;
+
+}
+
+function add_point_to_chart(name, g_o, deltaG) {
+  var series = {
+    type: 'scatter',
+    name: name,
+    data: [
+      [g_o, deltaG]
+    ]
+  };
+  var chart = $('#ds-plot').highcharts();
+  chart.addSeries(series);
+}
+
+function add_point_to_table(name, deltaG) {
+  var table = $('#ds-table').DataTable();
+  var row = format_table_row_array({
+    'name': name,
+    'deltaG': deltaG
+  });
+  table.row.add(row).draw();
+}
+
+function add_point_to_chart_and_table(name, g_o, deltaG) {
+  add_point_to_chart(name, g_o, deltaG);
+  add_point_to_table(name, deltaG);
+}
+
 // Refreshes the <sup class="bib-*"></sup> with the correct citations.
 function refresh_bib() {
   if (bibtex == null) {
@@ -121,6 +175,13 @@ function plotChartAndTable(series) {
 
   // Set the highcharts plot options
   var options = {
+    plotOptions: {
+      scatter: {
+        marker: {
+          radius: 9
+        }
+      }
+    },
     title: {
       text: 'dsDNA Conductance Comparison',
       x: -20 //center
@@ -139,7 +200,13 @@ function plotChartAndTable(series) {
     tooltip: {
       useHTML: true,
       formatter: function() {
-        return get_author_from_key(this.series.options.bib) +
+        var name;
+        if (this.series.options.hasOwnProperty('bib')) {
+          name = get_author_from_key(this.series.options.bib);
+        } else {
+          name = this.series.name;
+        }
+        return name +
           '<br/>Go: ' + this.x + ' nS' +
           '<br/>ΔG: ' + this.y + ' nS';
       }
@@ -148,8 +215,8 @@ function plotChartAndTable(series) {
       layout: 'horizontal',
       align: 'left',
       verticalAlign: 'bottom',
-      itemMarginTop: 6,
-      itemMarginBottom: 6,
+      itemMarginTop: 8,
+      itemMarginBottom: 8,
       padding: 3,
       borderWidth: 0,
       labelFormatter: function() {
@@ -218,30 +285,19 @@ function plotChartAndTable(series) {
   for (var i = 0; i < series.length; i++) {
     temp = series[i];
     temp.type = 'scatter';
-    temp.marker = {
-      radius: 8
-    }; // Set the marker radius. There must be a global way of doing this.
     options.series.push(temp);
 
-    // Create the table row. TODO remove if/else, should not need once all the data is collected.
-    var t = [];
-    // push bib reference key
-    t.push(series[i].bib);
-    // push first author
-    t.push(get_author_from_key(series[i].bib))
-    // push material
-    t.push(series[i].material);
-      // push dna
-    t.push(series[i].dna);
-    // push electrolyte-concentration
-    t.push(series[i].electrolyte_concentration);
-    // push electrolyte
-    t.push(series[i].electrolyte);
-    // push sigma
-    t.push(series[i].sigma);
-    // push max delta G, should be first datapoint
-    t.push(series[i].data[0][1]);
-    tableStuff.push(t);
+    var t = {
+      'bib': series[i].bib,
+      'name': get_author_from_key(series[i].bib),
+      'material': series[i].material,
+      'dna': series[i].dna,
+      'electrolyte_concentration': series[i].electrolyte_concentration,
+      'electrolyte': series[i].electrolyte,
+      'sigma': series[i].sigma,
+      'deltaG': series[i].data[0][1]
+    };
+    tableStuff.push(format_table_row_array(t));
   }
 
   // Plot the highcharts chart
@@ -269,7 +325,7 @@ function plotChartAndTable(series) {
       },
     }, {
       "title": "Material"
-    },{
+    }, {
       "title": "dsDNA (bp)",
       "className": "dt-body-right",
       "render": function(data, type, row) {
@@ -301,10 +357,9 @@ function plotChartAndTable(series) {
 
   // For some reason, need this hack to redraw table after 10 ms so the header
   // and body of table are aligned properly.
-  setTimeout(function ()
-  {
+  setTimeout(function() {
     ds_table.fnAdjustColumnSizing();
-  }, 10 );
+  }, 10);
 
 }
 $(document).ready(function() {
@@ -335,4 +390,14 @@ $(document).ready(function() {
 
   });
 
+  // Set up the add a point form
+  $('#form-add-point-submit').click(function() {
+    var $form = $('#form-add-point');
+    if ($form.parsley().validate()) {
+      var name = $('#form-name').val();
+      var g_o = Number($('#form-Go').val());
+      var deltaG = Number($('#form-DeltaG').val());
+      add_point_to_chart_and_table(name, g_o, deltaG);
+    }
+  });
 });

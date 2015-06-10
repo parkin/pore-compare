@@ -145,19 +145,19 @@
                       <button class="morph-header-button" type="button" onclick="this.blur();">
                         <span>Add to the graph</span>
                       </button>
-                      <form id="form-add-point" data-parsley-validate>
+                      <form id="form-add-point">
                         <p>
-                          <label for="fullname">Name</label>
-                          <input type="text" name="fullname" required />
+                          <label for="name">Name</label>
+                          <input type="text" id="form-name" required />
                         </p>
                         <p>
                           <label for="Go">$ G_o $ (nS)</label>
-                          <input data-parsley-type="number" name="Go" required />
+                          <input data-parsley-type="number" id="form-Go" required />
                           <label for="DeltaG">$ \Delta G $ (nS)</label>
-                          <input data-parsley-type="number" name="DeltaG" required />
+                          <input data-parsley-type="number" id="form-DeltaG" required />
                         </p>
                         <p>
-                          <input type="submit" class="button" />
+                          <button id="form-add-point-submit" class="button">Submit</button>
                         </p>
                       </form>
                     </div>
@@ -258,7 +258,6 @@
 
   <script src="http://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/modules/exporting.js"></script>
-  <script src="js/plot.js"></script>
   <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="js/bibtexParse.js"></script>
   <script src="js/classie.js"></script>
@@ -273,6 +272,7 @@
       });
     })();
   </script>
+  <script src="js/plot.js"></script>
 </body>
 
 </html>
