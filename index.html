@@ -10,13 +10,19 @@
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/skeleton.css" />
   <link rel="stylesheet" href="css/pore-compare.css" />
-  <link rel="stylesheet" href="assets/octicons/octicons.css"/>
+  <link rel="stylesheet" href="assets/octicons/octicons.css" />
+  <link rel="stylesheet" type="text/css" href="css/component.css" />
+  <link rel="stylesheet" type="text/css" href="css/content.css" />
+  <link rel="stylesheet" type="text/css" href="css/parsley.css" />
+  <link rel="stylesheet" href="css/jquery.dataTables.min.css" />
+  <script src="js/modernizr.custom.js"></script>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
   </script>
   <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <link rel="stylesheet" href="css/jquery.dataTables.min.css"/>
+  <script src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/parsley.min.js"></script>
 </head>
 
 <body>
@@ -88,29 +94,15 @@
           <div class="row">
             <div class="twelve columns">
               <p>
-                The ionic conductance through an open solid-state nanopore can be modeled by<sup class="bib-0957-4484-22-31-315101"></sup>
-
-                $$ G_{o} = \sigma [\frac{4 t}{\pi d^2} + \frac{1}{d}]^{-1} $$
-
-                where $ \sigma $ is the solution conductivity, $t$ is the membrane thickness,
-                and $d$ is the nanopore diameter.  When a DNA molecule enters the pore,
-                the molecule blocks a certain area of the pore and thus blocks some ionic current.
-                We can think of the smaller effective area of the pore during translocation as having
-                the diameter
-
-                $$ d_{eff} = \sqrt{d^2 - d_{dna}^2} $$
-
-                We can calculate the change in conductivity as a DNA molecule enters an open pore.
-
-                $$ \Delta G = G_{o} - G_{with dna} $$
-                $$ \Delta G = \sigma [\frac{4 t}{\pi d^2} + \frac{1}{d}]^{-1} - \sigma [\frac{4 t}{\pi d_{eff}^2} + \frac{1}{d_{eff}}]^{-1}$$
-
-                This $ \Delta G $ is the signal measured during DNA translocation experiments.
-                Clearly, if we want to maximize the signal, we need to reduce the membrane thickness and reduce the pore diameter.
+                The ionic conductance through an open solid-state nanopore can be modeled by<sup class="bib-0957-4484-22-31-315101"></sup> $$ G_{o} = \sigma [\frac{4 t}{\pi d^2} + \frac{1}{d}]^{-1} $$ where $ \sigma $ is the solution conductivity, $t$
+                is the membrane thickness, and $d$ is the nanopore diameter. When a DNA molecule enters the pore, the molecule blocks a certain area of the pore and thus blocks some ionic current. We can think of the smaller effective area of the pore
+                during translocation as having the diameter $$ d_{eff} = \sqrt{d^2 - d_{dna}^2} $$ We can calculate the change in conductivity as a DNA molecule enters an open pore. $$ \Delta G = G_{o} - G_{with dna} $$ $$ \Delta G = \sigma [\frac{4 t}{\pi
+                d^2} + \frac{1}{d}]^{-1} - \sigma [\frac{4 t}{\pi d_{eff}^2} + \frac{1}{d_{eff}}]^{-1}$$ This $ \Delta G $ is the signal measured during DNA translocation experiments. Clearly, if we want to maximize the signal, we need to reduce the membrane
+                thickness and reduce the pore diameter.
               </p>
               <p>
-                In the literature, there are a wide variety of salt solutions, membrane materials, and nanopore diameters used in experiments.
-                This site is an attempt to compare different publications by looking at $ \Delta G $ for 1&nbsp;M&nbsp;KCl solution conductivity at 23&nbsp;&deg;C.
+                In the literature, there are a wide variety of salt solutions, membrane materials, and nanopore diameters used in experiments. This site is an attempt to compare different publications by looking at $ \Delta G $ for 1&nbsp;M&nbsp;KCl solution conductivity
+                at 23&nbsp;&deg;C.
               </p>
             </div>
           </div>
@@ -140,6 +132,39 @@
               <p>
                 All data has been scaled to a solution conductivity of 10.8&nbsp;S/m (1&nbsp;M&nbsp;KCl @ 23&nbsp;&deg;C).
               </p>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="twelve columns">
+              <div class="morph-button morph-button-inflow morph-button-inflow-1">
+                <div class="morph-content">
+                  <div>
+                    <div class="content-style-form content-style-form-4">
+                      <button class="morph-header-button" type="button" onclick="this.blur();">
+                        <span>Add to the graph</span>
+                      </button>
+                      <form id="form-add-point" data-parsley-validate>
+                        <p>
+                          <label for="fullname">Name</label>
+                          <input type="text" name="fullname" required />
+                        </p>
+                        <p>
+                          <label for="Go">$ G_o $ (nS)</label>
+                          <input data-parsley-type="number" name="Go" required />
+                          <label for="DeltaG">$ \Delta G $ (nS)</label>
+                          <input data-parsley-type="number" name="DeltaG" required />
+                        </p>
+                        <p>
+                          <input type="submit" class="button" />
+                        </p>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- morph-button -->
             </div>
           </div>
         </div>
@@ -200,9 +225,7 @@
               </span>
               <h4>Submit an Issue</h4>
               <h6>
-                <a href="https://github.com/parkin/pore-compare/issues">Create an issue</a>
-                and tell us about your publication, $ G_o $, and $ \Delta G $.
-                Don't forget to scale your data to 1&nbsp;M&nbsp; KCl at 23&nbsp;&deg;C!
+                <a href="https://github.com/parkin/pore-compare/issues">Create an issue</a> and tell us about your publication, $ G_o $, and $ \Delta G $. Don't forget to scale your data to 1&nbsp;M&nbsp; KCl at 23&nbsp;&deg;C!
               </h6>
             </div>
           </div>
@@ -232,13 +255,24 @@
     </div>
   </footer>
 
-  <script src="js/jquery.js"></script>
 
   <script src="http://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/modules/exporting.js"></script>
   <script src="js/plot.js"></script>
   <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="js/bibtexParse.js"></script>
+  <script src="js/classie.js"></script>
+  <script src="js/uiMorphingButton_inflow.js"></script>
+  <script>
+    (function() {
+      new UIMorphingButton(document.querySelector('.morph-button'));
+      [].slice.call(document.querySelectorAll('form button')).forEach(function(bttn) {
+        bttn.addEventListener('click', function(ev) {
+          ev.preventDefault();
+        });
+      });
+    })();
+  </script>
 </body>
 
 </html>

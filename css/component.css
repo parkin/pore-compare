@@ -1,0 +1,117 @@
+/* Morph Button: Default Styles */
+
+.morph-button {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+}
+
+.morph-button > button {
+	position: relative;
+	overflow: hidden;
+}
+
+.morph-content {
+	pointer-events: none;
+}
+
+.morph-button.open .morph-content {
+	pointer-events: auto;
+}
+
+/* Morph Button Style: In the content flow */
+.morph-button-inflow {
+	overflow: hidden;
+	max-width: 100%;
+	height: 70px;
+}
+
+.morph-button-inflow > button {
+	width: 100%;
+	line-height: 70px;
+}
+
+.morph-button-inflow .morph-content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.morph-button-inflow .morph-content .morph-clone {
+	padding: 0;
+	font-weight: 700;
+	font-size: 1.5em;
+	line-height: 70px;
+}
+
+/* Colors and sizes for individual in flow buttons */
+.morph-button-inflow-1 {
+	width: 600px;
+	margin: 2em auto;
+	-webkit-transition: height 0.5s cubic-bezier(0.7,0,0.3,1);
+	transition: height 0.5s cubic-bezier(0.7,0,0.3,1);
+}
+
+.morph-button-inflow-1 > button span {
+	visibility: hidden;
+}
+
+.morph-button-inflow-1 .morph-content .morph-clone {
+	color: #f9f6e5;
+}
+
+/* Let's add some nice easing for all cases */
+.morph-button .morph-content,
+.morph-button.open .morph-content,
+.morph-button-modal-4 .morph-clone {
+	-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+/* No JS fallback: let's hide the button and show the content */
+.no-js .morph-button > button {
+	display: none;
+}
+
+.no-js .morph-button {
+	margin: 10px 0;
+	float: none;
+}
+
+.no-js .morph-button,
+.no-js .morph-button .morph-content,
+.no-js .morph-button .morph-content > div {
+	position: relative;
+	width: auto;
+	height: auto;
+	opacity: 1;
+	visibility: visible;
+	top: auto;
+	left: auto;
+	-webkit-transform: none;
+	transform: none;
+	pointer-events: auto;
+}
+
+.no-js .morph-button .morph-content .icon-close {
+	display: none;
+}
+
+.no-transition {
+	-webkit-transition: none !important;
+	transition: none !important;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 400px) {
+	.morph-button-inflow .morph-content .morph-clone {
+		font-size: 0.9em;
+	}
+}
+
+.morph-header-button {
+	pointer-events: auto;
+	margin-bottom: 0.4rem;
+}

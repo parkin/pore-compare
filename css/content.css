@@ -1,0 +1,58 @@
+/* Style for form modal */
+
+.content-style-form {
+  position: relative;
+  text-align: left;
+}
+.content-style-form h2 {
+  margin: 0;
+  padding: 0.4em 0 0.3em;
+  text-align: center;
+  font-weight: 300;
+  font-size: 3.5em;
+}
+.content-style-form form {
+  padding: 10px 30px;
+}
+.content-style-form input[type="text"], .content-style-form input[type="password"] {
+  width: 100%;
+}
+.content-style-form button {
+  display: block;
+  margin-top: 2.5em;
+  width: 100%;
+}
+.content-style-form-4 form {
+  padding: 30px;
+  background-color: #F9F8F2;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+}
+.js .content-style-form-4 p {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+  -webkit-transform: rotateX(-45deg);
+  transform: rotateX(-45deg);
+  -webkit-transform-origin: center top;
+  transform-origin: center top;
+}
+.morph-button.open .content-style-form-4 p {
+  opacity: 1;
+  -webkit-transition: opacity 0.4s 0.2s, -webkit-transform 0.4s 0.2s;
+  transition: opacity 0.4s 0.2s, transform 0.4s 0.2s;
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+.morph-button.open .content-style-form-4 p:nth-child(2) {
+  -webkit-transition-delay: 0.35s;
+  transition-delay: 0.35s;
+}
+.morph-button-inflow.open .content-style-social a:nth-child(2) {
+  -webkit-transition-delay: 0.05s;
+  transition-delay: 0.05s;
+}
+.morph-button-inflow.open .content-style-social a:nth-child(3) {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
