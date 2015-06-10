@@ -9,7 +9,12 @@ Inspired by [DNA Translocation in nm-Thick Silicon Nanopores](http://pubs.acs.or
 
 ## Contributing
 
-To add your data, please send in a pull request or [create a new issue](https://github.com/parkin/pore-compare/issues). Please see [data/data.json](data/data.json) to see current data.
+To contibute published data, please:
 
-Feel free to also send pull requests for any style/development of the page.
+1. Edit the data at [data/data.json](data/data.json) and follow its formatting. 
+2. Add your bibtex bibliography entry to [assets/bib.bib](assets/bib.bib).
+
+To add your data, please send in a pull request or [create a new issue](https://github.com/parkin/pore-compare/issues). 
+
+Other contributions, such as style and functionality improvements, are welcome!
 
