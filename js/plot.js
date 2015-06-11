@@ -371,6 +371,7 @@ function plotChartAndTable(series) {
     }, {
       type: 'spline',
       color: '#d95f02',
+      dashStyle: 'longdashdot',
       name: 'd = 4 nm',
       data: d_4nm_data
     }]
