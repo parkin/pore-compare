@@ -1,3 +1,13 @@
+/*************** Global Variables ***********/
+var bibtex;
+
+// Variaables for DNA calculations
+var d_dna = 2.2; // 2.2 nm diameter dsDNA
+var d_dna_sq = Math.pow(d_dna, 2);
+var sigma = 10.8; // KCl conductivity in nS/nm at 23 deg C
+var pi = Math.PI;
+
+
 /**
  * Sets up all # links to smooth scroll
  */
@@ -28,13 +38,6 @@ function smoothScrollTo(target) {
   }, 1000);
 }
 
-
-// Variaables for DNA calculations
-var d_dna = 2.2; // 2.2 nm diameter dsDNA
-var d_dna_sq = Math.pow(d_dna, 2);
-var sigma = 10.8; // KCl conductivity in nS/nm at 23 deg C
-var pi = Math.PI;
-
 function G_o(t, d) {
   d_sq = Math.pow(d, 2);
   denominator = 4. * t / (pi * d_sq) + 1. / d;
@@ -64,10 +67,11 @@ function Delta_G(t, d) {
 function generate_thickness_isoline(t, start, end) {
   data = [];
 
-  var n = 10;
+  var n = 10; // will end up with n+1 datapoints
   var step = (end - start) / n;
+  var new_point;
 
-  for (i = 0; i < n; i++) {
+  for (i = 0; i < n + 1; i++) {
     x = start + i * step;
     new_point = [G_o(t, x), Delta_G(t, x)];
     data.push(new_point);
@@ -75,11 +79,57 @@ function generate_thickness_isoline(t, start, end) {
   return data;
 }
 
-var t_0nm_data = generate_thickness_isoline(0, 2.5, 4.167);
-var t_1nm_data = generate_thickness_isoline(1, d_dna, 5.636); // DeltaG = 45 nS for t = 1nm and d = 5.19 nm
+/**
+ * Returns an array of datapoints for a diameter isoline.
+ * The resulting array will be logarithmically spaced.
+ */
+function generate_diameter_isoline(d, start, end) {
+  data = [];
+
+  // highcarts expects data to be in increasing x, so keep note if we need
+  // to reverse the resulting array
+  var reverse = false;
+  if (start > end) {
+    var temp = start;
+    start = end;
+    end = temp;
+    reverse = true;
+  }
+
+  var n = 10;
+  var new_point;
+  // If we start with 0, add the 0 datapoint here. Will not work
+  // in for loop with logs
+  if (start === 0) {
+    new_point = [G_o(0, d), Delta_G(0, d)];
+    data.push(new_point);
+    start = end / 1000.;
+    n -= 1;
+  }
+  // Creates a logarithmic spaced array of x's
+  var logMin = Math.log(start);
+  var step = (Math.log(end) - Math.log(start)) / n;
+  var x = 0;
+  var accDelta = 0;
+  for (i = 0; i < n + 1; i++) {
+    x = Math.exp(logMin + accDelta);
+    new_point = [G_o(x, d), Delta_G(x, d)];
+    data.push(new_point);
+    accDelta += step;
+  }
+  return reverse ? data.reverse() : data;
+}
+
+/************* Generate the isolines */
+var t_0nm_data = generate_thickness_isoline(0, 2.437, 4.167);
+var t_1nm_data = generate_thickness_isoline(1, d_dna, 5.189); // DeltaG = 45 nS for t = 1nm and d = 5.19 nm
 var t_2nm_data = generate_thickness_isoline(2, d_dna, 5.950);
 
-var bibtex;
+var d_2p5nm_data = generate_diameter_isoline(2.5, 18.24, 0); // DeltaG = 2 nS for d=2.5nm, t = 18.24nm
+var d_3nm_data = generate_diameter_isoline(3, 17.47, 0);
+var d_3p5nm_data = generate_diameter_isoline(3.5, 16.76, 0);
+var d_4nm_data = generate_diameter_isoline(4, 16.07, 0);
+
 
 function get_nature_format(citation) {
   var tags = citation.entryTags;
@@ -208,10 +258,21 @@ function plotChartAndTable(series) {
   // Set the highcharts plot options
   var options = {
     plotOptions: {
+      // This sets the default plot options, they can be overridden
+      // in individual series.
       scatter: {
         marker: {
           radius: 9
         }
+      },
+      spline: {
+        type: 'spline',
+        lineWidth: 1,
+        color: '#555555',
+        marker: {
+          enabled: false
+        },
+        enableMouseTracking: false,
       }
     },
     title: {
@@ -266,47 +327,52 @@ function plotChartAndTable(series) {
       color: '#000000',
       lineWidth: 2,
       dashStyle: 'dash',
-      marker: {
-        enabled: false
-      },
-      enableMouseTracking: false,
       data: [
         [2, 2],
         [15, 15],
       ]
     }, {
       type: 'spline',
-      lineWidth: 1,
-      color: '#555555',
-      dashStyle: 'dot',
       name: 't = 0 nm',
-      marker: {
-        enabled: false
-      },
-      enableMouseTracking: false,
+      dashStyle: 'dot',
+      lineWidth: 2,
+      color: '#000000',
       data: t_0nm_data
     }, {
       type: 'spline',
       name: 't = 1 nm',
-      lineWidth: 1,
-      color: '#555555',
       dashStyle: 'dash',
-      marker: {
-        enabled: false
-      },
-      enableMouseTracking: false,
+      color: '#1b9e77',
       data: t_1nm_data
     }, {
       type: 'spline',
-      lineWidth: 1,
-      color: '#555555',
       dashStyle: 'longdash',
+      color: '#1b9e77',
       name: 't = 2 nm',
-      marker: {
-        enabled: false
-      },
-      enableMouseTracking: false,
       data: t_2nm_data
+    }, {
+      type: 'spline',
+      color: '#d95f02',
+      dashStyle: 'dot',
+      name: 'd = 2.5 nm',
+      data: d_2p5nm_data
+    }, {
+      type: 'spline',
+      color: '#d95f02',
+      dashStyle: 'dash',
+      name: 'd = 3 nm',
+      data: d_3nm_data
+    }, {
+      type: 'spline',
+      color: '#d95f02',
+      dashStyle: 'longdash',
+      name: 'd = 3.5 nm',
+      data: d_3p5nm_data
+    }, {
+      type: 'spline',
+      color: '#d95f02',
+      name: 'd = 4 nm',
+      data: d_4nm_data
     }]
   };
 
