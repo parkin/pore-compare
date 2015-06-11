@@ -78,8 +78,7 @@
         </div>
       </div>
 
-      <a name="why-compare"></a>
-      <section class="section-title">
+      <section name="why-compare" class="section-title">
         <div class="container">
           <div class="row">
             <div class="twelve columns">
@@ -109,8 +108,7 @@
         </div>
       </section>
 
-      <a name="dsDNA"></a>
-      <section class="section-title">
+      <section name="dsDNA" class="section-title">
         <div class="container">
           <div class="row">
             <div class="twelve columns">
@@ -147,6 +145,9 @@
                       </button>
                       <form id="form-add-point">
                         <p>
+                          Use this to plot your own data on the graph. To add your data permanently, please <a href="#contribute">contribute</a>.
+                        </p>
+                        <p>
                           <label for="name">Name</label>
                           <input type="text" id="form-name" required />
                         </p>
@@ -157,7 +158,7 @@
                           <input data-parsley-type="number" id="form-DeltaG" required />
                         </p>
                         <p>
-                          <button id="form-add-point-submit" class="button">Submit</button>
+                          <button id="form-add-point-submit" class="button" onclick="this.blur();">Submit</button>
                         </p>
                       </form>
                     </div>
@@ -178,8 +179,7 @@
         </div>
       </section>
 
-      <a name="References"></a>
-      <section class="section-title">
+      <section name="references" class="section-title">
         <div class="container">
           <div class="row">
             <div class="twelve columns">
@@ -200,8 +200,7 @@
       </section>
 
 
-      <a name="contribute"></a>
-      <section class="contribute">
+      <section name="contribute" class="contribute">
         <div class="container">
           <div class="row text-center">
             <div class="twelve columns">

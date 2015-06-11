@@ -1,3 +1,34 @@
+/**
+ * Sets up all # links to smooth scroll
+ */
+function smoothScroll() {
+  // Sets up smooth scrolling
+  $('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top
+        }, 700);
+        return false;
+      }
+    }
+  });
+}
+
+/**
+ * Smooth scroll to an element.
+ * smoothScrollTo('#hero');
+ */
+function smoothScrollTo(target) {
+  $('html,body').animate({
+    scrollTop: $(target).offset().top
+  }, 1000);
+}
+
+
 // Variaables for DNA calculations
 var d_dna = 2.2; // 2.2 nm diameter dsDNA
 var d_dna_sq = Math.pow(d_dna, 2);
@@ -58,7 +89,7 @@ function get_nature_format(citation) {
     author += " <i>et al</i>"
   }
   var result = '<li>';
-  result += '<a id="bib-' + citation.citationKey + '"></a>';
+  result += '<a name="bib-' + citation.citationKey + '"></a>';
   result += author + '.';
   result += ' ' + tags.title + '.';
   result += ' <i>' + tags.journal + '</i>';
@@ -169,6 +200,7 @@ function refresh_bib() {
       citation.append('<a href="#bib-' + key + '">' + (index + 1) + '</a>');
     }
   });
+
 }
 
 function plotChartAndTable(series) {
@@ -393,11 +425,26 @@ $(document).ready(function() {
   // Set up the add a point form
   $('#form-add-point-submit').click(function() {
     var $form = $('#form-add-point');
+    // If the form validates, add the point.
     if ($form.parsley().validate()) {
       var name = $('#form-name').val();
       var g_o = Number($('#form-Go').val());
       var deltaG = Number($('#form-DeltaG').val());
       add_point_to_chart_and_table(name, g_o, deltaG);
+
+      // Wait a little then scroll up to chart
+      setTimeout(function() {
+        smoothScrollTo('#ds-plot');
+        // clear the form
+        setTimeout(function() {
+          $form.parsley().destroy();
+          $form[0].reset();
+        }, 800);
+      }, 400);
+
     }
   });
+
+  // Set up smooth scrolling
+  smoothScroll();
 });
