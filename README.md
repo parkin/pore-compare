@@ -17,3 +17,15 @@ To contibute published data, please:
 To add your data, please send in a pull request or [create a new issue](https://github.com/parkin/pore-compare/issues).
 
 Other contributions, such as style and functionality improvements, are welcome!
+
+## Development
+
+### Deploying
+
+The project is hosted on Github Pages, using the `gh-pages` branch. There is an npm task to deploy the site to the gh-pages branch.
+
+```
+npm run deploy
+```
+
+*Note that this will push to `gh-pages` with the force `-f` flag!*
