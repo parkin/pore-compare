@@ -3,7 +3,8 @@ var ghPages = require('gulp-gh-pages');
 
 var paths = {
   toDeploy: [
-    './app/**/*'
+    './app/**/*',
+    'README.md'
   ]
 }
 
