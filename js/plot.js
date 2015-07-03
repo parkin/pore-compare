@@ -1,4 +1,6 @@
 /*************** Global Variables ***********/
+'use strict';
+
 var bibtex;
 
 // Variaables for DNA calculations
@@ -7,13 +9,12 @@ var d_dna_sq = Math.pow(d_dna, 2);
 var sigma = 10.8; // KCl conductivity in nS/nm at 23 deg C
 var pi = Math.PI;
 
-
 /**
  * Sets up all # links to smooth scroll
  */
 function smoothScroll() {
   // Sets up smooth scrolling
-  $('a[href*=#]:not([href=#])').click(function() {
+  $('a[href*=#]:not([href=#])').click(function () {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
 
       var target = $(this.hash);
@@ -39,8 +40,8 @@ function smoothScrollTo(target) {
 }
 
 function G_o(t, d) {
-  d_sq = Math.pow(d, 2);
-  denominator = 4. * t / (pi * d_sq) + 1. / d;
+  var d_sq = Math.pow(d, 2);
+  var denominator = 4 * t / (pi * d_sq) + 1 / d;
   return sigma / denominator;
 }
 
@@ -48,10 +49,10 @@ function G_blocked(t, d) {
   if (d <= d_dna) {
     return 0;
   }
-  d_sq = Math.pow(d, 2);
-  d_eff_sq = d_sq - d_dna_sq;
-  d_eff = Math.sqrt(d_eff_sq); // effective diameter of blocked pore
-  denominator = 4. * t / (pi * d_eff_sq) + 1. / (d_eff);
+  var d_sq = Math.pow(d, 2);
+  var d_eff_sq = d_sq - d_dna_sq;
+  var d_eff = Math.sqrt(d_eff_sq); // effective diameter of blocked pore
+  var denominator = 4 * t / (pi * d_eff_sq) + 1 / d_eff;
   return sigma / denominator;
 }
 
@@ -65,14 +66,14 @@ function Delta_G(t, d) {
  * end = diameter of pore you want to end the isoline at.
  */
 function generate_thickness_isoline(t, start, end) {
-  data = [];
+  var data = [];
 
   var n = 10; // will end up with n+1 datapoints
   var step = (end - start) / n;
   var new_point;
 
-  for (i = 0; i < n + 1; i++) {
-    x = start + i * step;
+  for (var i = 0; i < n + 1; i++) {
+    var x = start + i * step;
     new_point = [G_o(t, x), Delta_G(t, x)];
     data.push(new_point);
   }
@@ -84,7 +85,7 @@ function generate_thickness_isoline(t, start, end) {
  * The resulting array will be logarithmically spaced.
  */
 function generate_diameter_isoline(d, start, end) {
-  data = [];
+  var data = [];
 
   // highcarts expects data to be in increasing x, so keep note if we need
   // to reverse the resulting array
@@ -103,7 +104,7 @@ function generate_diameter_isoline(d, start, end) {
   if (start === 0) {
     new_point = [G_o(0, d), Delta_G(0, d)];
     data.push(new_point);
-    start = end / 1000.;
+    start = end / 1000;
     n -= 1;
   }
   // Creates a logarithmic spaced array of x's
@@ -111,7 +112,7 @@ function generate_diameter_isoline(d, start, end) {
   var step = (Math.log(end) - Math.log(start)) / n;
   var x = 0;
   var accDelta = 0;
-  for (i = 0; i < n + 1; i++) {
+  for (var i = 0; i < n + 1; i++) {
     x = Math.exp(logMin + accDelta);
     new_point = [G_o(x, d), Delta_G(x, d)];
     data.push(new_point);
@@ -130,13 +131,12 @@ var d_3nm_data = generate_diameter_isoline(3, 17.47, 0);
 var d_3p5nm_data = generate_diameter_isoline(3.5, 16.76, 0);
 var d_4nm_data = generate_diameter_isoline(4, 16.07, 0);
 
-
 function get_nature_format(citation) {
   var tags = citation.entryTags;
   var authors = tags.author.split(' and ');
   var author = authors[0]; // get first author
   if (authors.length > 1) {
-    author += " <i>et al</i>"
+    author += ' <i>et al</i>';
   }
   var result = '<li>';
   result += '<a name="bib-' + citation.citationKey + '"></a>';
@@ -145,11 +145,11 @@ function get_nature_format(citation) {
   result += ' <i>' + tags.journal + '</i>';
   result += ' <b>' + tags.volume + '</b>,';
   result += ' ' + tags.pages;
-  result += ' (' + tags.year + ').'
+  result += ' (' + tags.year + ').';
   if (tags.hasOwnProperty('url')) {
     result += ' <a href="' + tags.url + '">(Link)</a>';
   }
-  result += '</li>'
+  result += '</li>';
   return result;
 }
 
@@ -158,7 +158,7 @@ function get_author_from_key(key) {
   var authors = citation.entryTags.author.split(' and ');
   var author = authors[0]; // get first author
   if (authors.length > 1) {
-    author += " <i>et al.</i>"
+    author += ' <i>et al.</i>';
   }
   return author;
 }
@@ -196,16 +196,13 @@ function format_table_row_array(t) {
   t.hasOwnProperty('sigma') ? result.push(t.sigma) : result.push('');
   t.hasOwnProperty('deltaG') ? result.push(t.deltaG) : result.push('');
   return result;
-
 }
 
 function add_point_to_chart(name, g_o, deltaG) {
   var series = {
     type: 'scatter',
     name: name,
-    data: [
-      [g_o, deltaG]
-    ]
+    data: [[g_o, deltaG]]
   };
   var chart = $('#ds-plot').highcharts();
   chart.addSeries(series);
@@ -228,17 +225,17 @@ function add_point_to_chart_and_table(name, g_o, deltaG) {
 // Refreshes the <sup class="bib-*"></sup> with the correct citations.
 function refresh_bib() {
   if (bibtex == null) {
-    return
+    return;
   }
   // empty the references ordered list
-  $('#references').empty()
+  $('#references').empty();
 
   var cited = [];
   var count = 0;
-  var citations = $('[class^=bib-]').each(function(i) {
+  var citations = $('[class^=bib-]').each(function (i) {
     var citation = $(this);
     citation.empty();
-    var key = citation[0].className.replace("bib-", "");
+    var key = citation[0].className.replace('bib-', '');
     var index = cited.indexOf(key);
     if (index < 0) {
       count++;
@@ -250,7 +247,6 @@ function refresh_bib() {
       citation.append('<a href="#bib-' + key + '">' + (index + 1) + '</a>');
     }
   });
-
 }
 
 function plotChartAndTable(series) {
@@ -272,7 +268,7 @@ function plotChartAndTable(series) {
         marker: {
           enabled: false
         },
-        enableMouseTracking: false,
+        enableMouseTracking: false
       }
     },
     title: {
@@ -288,20 +284,18 @@ function plotChartAndTable(series) {
       title: {
         text: 'ΔG (nS)',
         useHTML: true
-      },
+      }
     },
     tooltip: {
       useHTML: true,
-      formatter: function() {
+      formatter: function formatter() {
         var name;
         if (this.series.options.hasOwnProperty('bib')) {
           name = get_author_from_key(this.series.options.bib);
         } else {
           name = this.series.name;
         }
-        return name +
-          '<br/>Go: ' + this.x + ' nS' +
-          '<br/>ΔG: ' + this.y + ' nS';
+        return name + '<br/>Go: ' + this.x + ' nS' + '<br/>ΔG: ' + this.y + ' nS';
       }
     },
     legend: {
@@ -312,7 +306,7 @@ function plotChartAndTable(series) {
       itemMarginBottom: 8,
       padding: 3,
       borderWidth: 0,
-      labelFormatter: function() {
+      labelFormatter: function labelFormatter() {
         if (this.options.hasOwnProperty('bib')) {
           return get_author_from_key(this.options.bib) + get_citation_html(this.options.bib);
         } else {
@@ -327,10 +321,7 @@ function plotChartAndTable(series) {
       color: '#000000',
       lineWidth: 2,
       dashStyle: 'dash',
-      data: [
-        [2, 2],
-        [15, 15],
-      ]
+      data: [[2, 2], [15, 15]]
     }, {
       type: 'spline',
       name: 't = 0 nm',
@@ -404,75 +395,72 @@ function plotChartAndTable(series) {
 
   // Add the datatable
   var ds_table = $('#ds-table').dataTable({
-    "scrollX": true,
-    "data": tableStuff,
-    "order": [
-      [7, "desc"]
-    ],
-    "columns": [{
-      "title": "Cite",
-      "visible": false
+    'scrollX': true,
+    'data': tableStuff,
+    'order': [[7, 'desc']],
+    'columns': [{
+      'title': 'Cite',
+      'visible': false
     }, {
-      "title": "Publication",
+      'title': 'Publication',
       // linkify if the link is available
-      "render": function(data, type, row) {
+      'render': function render(data, type, row) {
         var ret = '';
         if (row[0].length > 0) {
           ret += get_citation_html(row[0]);
         }
         return data + ret;
-      },
+      }
     }, {
-      "title": "Material"
+      'title': 'Material'
     }, {
-      "title": "dsDNA (bp)",
-      "className": "dt-body-right",
-      "render": function(data, type, row) {
-        if (type == "display" && data > 1000) {
-          return (data / 1000) + ' k';
+      'title': 'dsDNA (bp)',
+      'className': 'dt-body-right',
+      'render': function render(data, type, row) {
+        if (type == 'display' && data > 1000) {
+          return data / 1000 + ' k';
         }
         return data;
       }
     }, {
-      "title": "Electrolyte",
-      "className": "dt-body-right",
-      "render": function(data, type, row) {
-        if (type == "display") {
+      'title': 'Electrolyte',
+      'className': 'dt-body-right',
+      'render': function render(data, type, row) {
+        if (type == 'display') {
           return data + ' M ' + row[5];
         }
         return data;
       }
     }, {
-      "title": "Electrolyte Name",
-      "visible": false
+      'title': 'Electrolyte Name',
+      'visible': false
     }, {
-      "title": "σ (S/m)",
-      "className": "dt-body-right"
+      'title': 'σ (S/m)',
+      'className': 'dt-body-right'
     }, {
-      "title": "ΔG (nS) scaled to <br/>1&nbsp;M&nbsp;KCl @ 23&nbsp;&deg;C (10.8 S/m)",
-      "className": "dt-body-right"
+      'title': 'ΔG (nS) scaled to <br/>1&nbsp;M&nbsp;KCl @ 23&nbsp;&deg;C (10.8 S/m)',
+      'className': 'dt-body-right'
     }]
   });
 
   // For some reason, need this hack to redraw table after 10 ms so the header
   // and body of table are aligned properly.
-  setTimeout(function() {
+  setTimeout(function () {
     ds_table.fnAdjustColumnSizing();
   }, 10);
-
 }
-$(document).ready(function() {
+$(document).ready(function () {
   // Grab the json data
   var d1 = $.getJSON('data/data.json');
 
   // Load the bibliography
   var d2 = $.ajax({
-    url: "assets/bib.bib",
-    dataType: "text"
+    url: 'assets/bib.bib',
+    dataType: 'text'
   });
 
   // Wait until both the bibliography text and json data are loaded.
-  $.when(d1, d2).then(function(result1, result2) {
+  $.when(d1, d2).then(function (result1, result2) {
 
     // parse the bibtex
     var rawBib = result2[0];
@@ -486,11 +474,10 @@ $(document).ready(function() {
     var series = result1[0];
     plotChartAndTable(series);
     refresh_bib();
-
   });
 
   // Set up the add a point form
-  $('#form-add-point-submit').click(function() {
+  $('#form-add-point-submit').click(function () {
     var $form = $('#form-add-point');
     // If the form validates, add the point.
     if ($form.parsley().validate()) {
@@ -500,15 +487,14 @@ $(document).ready(function() {
       add_point_to_chart_and_table(name, g_o, deltaG);
 
       // Wait a little then scroll up to chart
-      setTimeout(function() {
+      setTimeout(function () {
         smoothScrollTo('#ds-plot');
         // clear the form
-        setTimeout(function() {
+        setTimeout(function () {
           $form.parsley().destroy();
           $form[0].reset();
         }, 800);
       }, 400);
-
     }
   });
 
