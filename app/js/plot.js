@@ -39,8 +39,8 @@ function smoothScrollTo(target) {
 }
 
 function G_o(t, d) {
-  d_sq = Math.pow(d, 2);
-  denominator = 4. * t / (pi * d_sq) + 1. / d;
+  var d_sq = Math.pow(d, 2);
+  var denominator = 4. * t / (pi * d_sq) + 1. / d;
   return sigma / denominator;
 }
 
@@ -48,10 +48,10 @@ function G_blocked(t, d) {
   if (d <= d_dna) {
     return 0;
   }
-  d_sq = Math.pow(d, 2);
-  d_eff_sq = d_sq - d_dna_sq;
-  d_eff = Math.sqrt(d_eff_sq); // effective diameter of blocked pore
-  denominator = 4. * t / (pi * d_eff_sq) + 1. / (d_eff);
+  var d_sq = Math.pow(d, 2);
+  var d_eff_sq = d_sq - d_dna_sq;
+  var d_eff = Math.sqrt(d_eff_sq); // effective diameter of blocked pore
+  var denominator = 4. * t / (pi * d_eff_sq) + 1. / (d_eff);
   return sigma / denominator;
 }
 
@@ -65,14 +65,14 @@ function Delta_G(t, d) {
  * end = diameter of pore you want to end the isoline at.
  */
 function generate_thickness_isoline(t, start, end) {
-  data = [];
+  var data = [];
 
   var n = 10; // will end up with n+1 datapoints
   var step = (end - start) / n;
   var new_point;
 
-  for (i = 0; i < n + 1; i++) {
-    x = start + i * step;
+  for (var i = 0; i < n + 1; i++) {
+    var x = start + i * step;
     new_point = [G_o(t, x), Delta_G(t, x)];
     data.push(new_point);
   }
@@ -84,7 +84,7 @@ function generate_thickness_isoline(t, start, end) {
  * The resulting array will be logarithmically spaced.
  */
 function generate_diameter_isoline(d, start, end) {
-  data = [];
+  var data = [];
 
   // highcarts expects data to be in increasing x, so keep note if we need
   // to reverse the resulting array
@@ -111,7 +111,7 @@ function generate_diameter_isoline(d, start, end) {
   var step = (Math.log(end) - Math.log(start)) / n;
   var x = 0;
   var accDelta = 0;
-  for (i = 0; i < n + 1; i++) {
+  for (var i = 0; i < n + 1; i++) {
     x = Math.exp(logMin + accDelta);
     new_point = [G_o(x, d), Delta_G(x, d)];
     data.push(new_point);

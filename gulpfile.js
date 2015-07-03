@@ -1,3 +1,9 @@
+'use strict';
+
+/*** Add tasks from tasks folder */
+require('./tasks/build');
+/*** tasks from tasks folder */
+
 var gulp = require('gulp');
 var ghPages = require('gulp-gh-pages');
 var child = require('child_process');
@@ -32,12 +38,12 @@ function timeStamp() {
 
 var paths = {
   toDeploy: [
-    './app/**/*',
+    './build/**/*',
     'README.md'
   ]
 }
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['build'], function() {
   var gitMessage;
   if(typeof child.execSync === "function") {
     // git message: "[short hash] :: [previous commit message]"
@@ -50,7 +56,6 @@ gulp.task('deploy', function() {
   }
   // commit message: "[Timestamp] :: [gitMessage]"
   var message = timeStamp() + ' :: ' + gitMessage;
-  console.log(message);
   return gulp.src(paths.toDeploy)
     .pipe(ghPages({
       message: message

@@ -20,6 +20,21 @@ Other contributions, such as style and functionality improvements, are welcome!
 
 ## Development
 
+### Dependencies
+
+The only development dependency is [nodejs](https://nodejs.org/).
+
+### Quick Start
+
+```bash
+git clone https://github.com/parkin/pore-compare.git
+cd pore-compare
+npm install
+npm start
+```
+
+Then point your browser to [http://localhost:8080/](http://localhost:8080/) and you should see the site!
+
 ### Deploying
 
 The project is hosted on Github Pages, using the `gh-pages` branch. There is an npm task to deploy the site to the gh-pages branch.
@@ -28,4 +43,5 @@ The project is hosted on Github Pages, using the `gh-pages` branch. There is an 
 npm run deploy
 ```
 
+*This will push to the `gh-pages` branch, so you must have access to the remote gh-pages branch to use this!*
 *Note that this will push to `gh-pages` with the force `-f` flag!*
