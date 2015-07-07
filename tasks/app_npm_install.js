@@ -5,7 +5,7 @@
 var childProcess = require('child_process');
 var path = require('path');
 
-var appPath = path.join(process.cwd(), 'app');
+var appPath = path.join(__dirname, '..', 'app');
 
 var npmCommand = 'npm' + (process.platform === 'win32' ? '.cmd' : '');
 var params = ['install'];
