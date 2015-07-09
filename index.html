@@ -9,12 +9,11 @@
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/skeleton.css" />
-  <link rel="stylesheet" href="css/pore-compare.css" />
-  <link rel="stylesheet" href="assets/octicons/octicons.css" />
   <link rel="stylesheet" type="text/css" href="css/component.css" />
   <link rel="stylesheet" type="text/css" href="css/content.css" />
   <link rel="stylesheet" type="text/css" href="css/parsley.css" />
   <link rel="stylesheet" href="css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="stylesheets/main.css" />
   <script src="vendor/modernizr.custom.js"></script>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
@@ -47,7 +46,7 @@
             <ul class="navigation inline-list">
               <li>
                 <a href="https://github.com/parkin/pore-compare">
-                  <span class="octicon octicon-repo"></span> Repo
+                  <svg class="icon" ><use xlink:href="#octicon-repo" /></svg> Repo
                 </a>
               </li>
             </ul>
@@ -71,9 +70,10 @@
               </h5>
               <h6>
                 Made with
-                <span class="mega-octicon octicon-heart"></span> by Julio, Matt, and
+                <svg class="icon" ><use xlink:href="#octicon-heart" /></svg> by Julio, Matt, and
                 <a href="https://github.com/parkin">
-                  <span class="mega-octicon octicon-mark-github"></span>parkin</a>.
+                  <svg class="icon" ><use xlink:href="#octicon-mark-github" /></svg>parkin
+                </a>.
               </h6>
             </div>
           </div>
@@ -214,16 +214,12 @@
           </div>
           <div class="row text-center">
             <div class="six columns">
-              <span class="show-off-icon">
-                <div class="mega-octicon octicon-git-pull-request"></div>
-              </span>
+              <svg class="icon-huge" ><use xlink:href="#octicon-git-pull-request" /></svg>
               <h4>Send in a Pull Request</h4>
               <h6>Fork the <a href="https://github.com/parkin/pore-compare">repo</a>, make your additions, and send them our way!</h6>
             </div>
             <div class="six columns">
-              <span class="show-off-icon">
-                <div class="mega-octicon octicon-issue-opened"></div>
-              </span>
+              <svg class="icon-huge" ><use xlink:href="#octicon-issue-opened" /></svg>
               <h4>Submit an Issue</h4>
               <h6>
                 <a href="https://github.com/parkin/pore-compare/issues">Create an issue</a> and tell us about your publication, $ G_o $, and $ \Delta G $. Don't forget to scale your data to 1&nbsp;M&nbsp; KCl at 23&nbsp;&deg;C!
@@ -243,22 +239,38 @@
           <ul class="navigation inline-list">
             <li>
               <a href="https://github.com/parkin/pore-compare">
-                <span class="octicon octicon-repo"></span> Repo
+                <svg class="icon" ><use xlink:href="#octicon-repo" /></svg> Repo
               </a>
             </li>
           </ul>
         </div>
         <div class="one-half column text-right">
-          <span class="octicon octicon-code"></span> with
-          <span class="octicon octicon-heart"></span> by Julio, Matt, and
+          <svg class="icon" ><use xlink:href="#octicon-code" /></svg> with
+          <svg class="icon" ><use xlink:href="#octicon-heart" /></svg> by Julio, Matt, and
           <a href="https://github.com/parkin">
-            <span class="octicon octicon-mark-github"></span>parkin</a>.
+            <svg class="icon" ><use xlink:href="#octicon-mark-github" /></svg>parkin
+          </a>.
         </div>
       </div>
     </div>
   </footer>
 
 
+  <script type="text/javascript">
+    // grab the svg sprite
+    (function() {
+      var ajax = new XMLHttpRequest();
+      ajax.open("GET", "defs/svg/sprite.defs.svg", true);
+      ajax.send();
+      ajax.onload = function(e) {
+        // Add the svgs to a hidden div at the top
+        var div = document.createElement("div");
+        div.innerHTML = ajax.responseText;
+        div.style.display = "none";
+        document.body.insertBefore(div, document.body.childNodes[0]);
+      }
+    })();
+  </script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script type="text/javascript" src="vendor/jquery.dataTables.min.js"></script>
