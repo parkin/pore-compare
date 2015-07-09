@@ -35,6 +35,12 @@ npm start
 
 Then point your browser to [http://localhost:8080/](http://localhost:8080/) and you should see the site!
 
+### Build tasks
+
+We use [Gulp](http://gulpjs.com/) to run build tasks. The site source code is in the [app](app) directory. Running the [`gulp build`](tasks/build.js) task will compile what it needs to and copy everything else to the `build` directory.
+
+Running `gulp connect` will build the site and start a server, serving from the `build` directory.
+
 ### Deploying
 
 The project is hosted on Github Pages, using the `gh-pages` branch. There is an npm task to deploy the site to the gh-pages branch.

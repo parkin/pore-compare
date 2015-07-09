@@ -18,6 +18,14 @@ a .icon {
 a:hover .icon {
   fill: #1b9cc5; }
 
+.octicon-heart {
+  -moz-transition: fill 0.5s;
+  -o-transition: fill 0.5s;
+  -webkit-transition: fill 0.5s;
+  transition: fill 0.5s; }
+  .octicon-heart:hover {
+    fill: red; }
+
 .inline-list {
   list-style: none;
   padding: 0;
