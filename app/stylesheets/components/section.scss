@@ -1,0 +1,18 @@
+@import "../variables/ui-variables";
+
+section {
+  padding: 60px 0;
+}
+.section-title {
+  background-color: $section-title-background-color;
+  text-align: center;
+}
+.why-compare-body {
+  background-color: $section-background-color-1;
+}
+.references {
+  background-color: $section-background-color-1;
+}
+.contribute {
+  background-color: $section-background-color-2;
+}

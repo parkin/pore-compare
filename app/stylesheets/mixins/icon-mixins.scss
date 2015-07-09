@@ -1,0 +1,26 @@
+@import "../variables/ui-variables";
+
+@mixin icon($size: $icon-size, $color: $text-color){
+  vertical-align: text-bottom;
+  display: inline-block;
+  height: $size;
+  width: $size;
+  fill: $color;
+}
+
+@mixin icon-huge($color: $text-color){
+  @include icon($icon-huge-size, $color);
+}
+
+@mixin link-icon($link-color: $link-color, $link-color-hover: darken($link-color, 5%)){
+  a {
+    .icon {
+      fill: $link-color;
+    }
+    &:hover {
+      .icon {
+        fill: $link-color-hover;
+      }
+    }
+  }
+}

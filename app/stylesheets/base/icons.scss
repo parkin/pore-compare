@@ -1,0 +1,12 @@
+@import "../variables/ui-variables";
+@import "../mixins//icon-mixins";
+
+.icon {
+  @include icon();
+}
+
+.icon-huge {
+  @include icon-huge();
+}
+
+@include link-icon($link-color);

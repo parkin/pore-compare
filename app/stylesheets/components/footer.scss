@@ -1,0 +1,12 @@
+@import "../variables/ui-variables";
+@import "../mixins/icon-mixins";
+
+footer {
+  background-color: $footer-background-color;
+  padding: $footer-padding-top-bottom 0;
+
+  .icon {
+    @include icon(16px);
+  }
+  @include link-icon();
+}

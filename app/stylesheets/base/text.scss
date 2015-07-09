@@ -1,0 +1,22 @@
+@import "../variables/ui-variables";
+
+body {
+  color: $text-color;
+  font-size: $font-size;
+}
+a {
+  text-decoration: none;
+  color: $link-color;
+  &:hover {
+    color: $link-color-hover;
+  }
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+}

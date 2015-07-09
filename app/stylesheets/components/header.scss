@@ -1,0 +1,15 @@
+@import "../variables/ui-variables";
+@import "../mixins/icon-mixins";
+
+$header-text-color: #DCCBD6;
+
+header {
+  padding: $header-padding-top-bottom 0;
+  background-color: $header-backround-color;
+  .icon {
+    @include icon(16px, $header-text-color);
+  }
+}
+header a {
+  color: $header-text-color;
+}

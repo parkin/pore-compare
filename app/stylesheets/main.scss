@@ -1,0 +1,38 @@
+@import 'variables/ui-variables';
+
+@import "base/icons";
+@import "base/inline-list";
+@import "base/text";
+
+@import "components/footer";
+@import "components/header";
+@import "components/hero";
+@import "components/section";
+
+
+.show-off-icon .mega-octicon {
+  font-size: 128px;
+}
+#ds-plot {
+  padding: 15px;
+	min-height: 500px;
+}
+@media (min-width: 1000px) {
+  #ds-plot {
+    min-height: 600px;
+  }
+}
+th {
+  background-color: #7A1B59;
+  padding: 6px;
+  color: #DCCBD6;
+}
+@media (max-width: 800px) {
+  .container.medium-full-width {
+    width: 100%;
+    padding: 0;
+  }
+}
+th, td {
+  white-space: nowrap;
+}
