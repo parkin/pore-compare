@@ -1,5 +1,6 @@
 @import "../variables/ui-variables";
-@import "../mixins//icon-mixins";
+@import "../mixins/icon-mixins";
+@import "../mixins/transition-mixins";
 
 .icon {
   @include icon();
@@ -10,3 +11,11 @@
 }
 
 @include link-icon($link-color);
+
+.octicon-heart {
+  @include transition(fill 0.5s);
+
+  &:hover {
+    fill: red;
+  }
+}
