@@ -1,0 +1,26 @@
+{
+  "name": "pore-compare",
+  "version": "0.0.0",
+  "description": "Comparison of nanopores in the literature.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://parkin.github.io/pore-compare",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parkin/pore-compare"
+  },
+  "keywords": [
+    "nanopore"
+  ],
+  "author": "Will Parkin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/parkin/pore-compare/issues"
+  },
+  "private": true,
+  "dependencies": {
+    "react": "^0.13.3"
+  }
+}
