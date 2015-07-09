@@ -71,7 +71,7 @@
               </h5>
               <h6>
                 Made with
-                <span class="mega-octicon octicon-heart"></span> by Julio, Matt, and
+                <svg class="icon"><use xlink:href="#heart" /></svg> by Julio, Matt, and
                 <a href="https://github.com/parkin">
                   <span class="mega-octicon octicon-mark-github"></span>parkin</a>.
               </h6>
@@ -259,6 +259,21 @@
   </footer>
 
 
+  <script type="text/javascript">
+    // grab the svg sprite
+    (function() {
+      var ajax = new XMLHttpRequest();
+      ajax.open("GET", "defs/svg/sprite.defs.svg", true);
+      ajax.send();
+      ajax.onload = function(e) {
+        // Add the svgs to a hidden div at the top
+        var div = document.createElement("div");
+        div.innerHTML = ajax.responseText;
+        div.style.display = "none";
+        document.body.insertBefore(div, document.body.childNodes[0]);
+      }
+    })();
+  </script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script type="text/javascript" src="vendor/jquery.dataTables.min.js"></script>

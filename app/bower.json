@@ -1,0 +1,12 @@
+{
+  "name": "pore-compare",
+  "version": "0.0.0",
+  "homepage": "https://github.com/parkin/pore-compare",
+  "authors": [
+    "Will <wmparkin@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "octicons": "~2.4.1"
+  }
+}

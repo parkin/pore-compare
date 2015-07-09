@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var babel = require('gulp-babel');
+var svgSprite = require('gulp-svg-sprite');
 var path = require('path');
 var del = require('del');
 var connect = require('gulp-connect');
@@ -22,6 +23,7 @@ var paths = {
   toCopy: [
     'app/node_modules/**',
     'app/bower_components/**',
+    '!app/bower_components/**/*.svg',
     'app/**/*.html',
     'app/favicon.ico',
     'app/assets/**/*',
@@ -29,6 +31,9 @@ var paths = {
     'app/css/**',
     'app/images/**',
     'app/vendor/**'
+  ],
+  svg: [
+    'app/bower_components/octicons/svg/*.svg'
   ]
 }
 
@@ -53,13 +58,26 @@ var transpileTask = function() {
 gulp.task('transpile', ['clean'], transpileTask);
 gulp.task('transpile-watch', transpileTask);
 
+var svgTask = function() {
+  return gulp.src(paths.svg)
+    .pipe(svgSprite({
+      mode: {
+        defs: true
+      }
+    }))
+    .pipe(gulp.dest(destDir))
+}
+gulp.task('svg', ['clean'], svgTask);
+gulp.task('svg-watch', svgTask);
+
 gulp.task('watch', function() {
   gulp.watch(paths.jsCodeToTranspile, ['transpile-watch']);
   gulp.watch(paths.toCopy, ['copy-watch']);
+  gulp.watch(paths.svg, ['svg-watch']);
   // TODO Add sass support
 })
 
-gulp.task('build', ['transpile', 'copy']);
+gulp.task('build', ['transpile', 'svg', 'copy']);
 
 gulp.task('connect', ['build', 'watch'], function() {
   connect.server({
